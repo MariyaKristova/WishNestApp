@@ -1,0 +1,47 @@
+/* Style form fields */
+form input, form select {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 1rem;
+}
+
+form label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 500;
+}
+
+/* Style form error messages */
+.errorlist {
+    color: #dc3545;
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Help text styling */
+.helptext {
+    display: block;
+    margin-top: -0.5rem;
+    margin-bottom: .5rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}

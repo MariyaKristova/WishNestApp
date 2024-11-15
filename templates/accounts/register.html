@@ -9,13 +9,13 @@
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
                         <img src="{% static 'images/logo.png' %}" alt="WishNest Logo" class="mb-3" style="max-width: 100px;">
-                        <h2 class="card-title mb-3">Welcome Back</h2>
-                        <p class="text-muted">Please enter your credentials to login</p>
+                        <h2 class="card-title mb-3">Create Account</h2>
+                        <p class="text-muted">Join WishNest to start creating your wishlist</p>
                     </div>
 
-                    <form method="POST">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-
+                        
                         {% if messages %}
                         <div class="alert alert-danger">
                             {% for message in messages %}
@@ -23,15 +23,17 @@
                             {% endfor %}
                         </div>
                         {% endif %}
+
                         {{ form }}
-                        <button type="submit" class="btn btn-custom btn-block">Login</button>
+
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
                     </form>
 
                     <hr class="my-4">
 
                     <div class="text-center">
-                        <p class="text-muted">Don't have an account?</p>
-                        <a href="{% url 'register' %}" class="btn btn-outline-secondary">Create Account</a>
+                        <p class="text-muted">Already have an account?</p>
+                        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
                     </div>
                 </div>
             </div>
