@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView, ListView
 
-# Create your views here.
+class HomePageView(TemplateView):
+    template_name = 'common/home-page.html'
+
+# class DashboardView(ListView):
+#     model = Event
+#     template_name = 'dashboard.html'
+#     context_object_name = 'events'
+
+
