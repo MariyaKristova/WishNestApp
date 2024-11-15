@@ -13,6 +13,11 @@ UserModel = get_user_model()
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
 
+    def get_success_url(self):
+        return reverse_lazy(
+            'common/dashboard.html'
+        )
+
 class RegisterView(CreateView):
     model = UserModel
     form_class = UserCreateForm
@@ -52,7 +57,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Profile
     template_name = 'accounts/profile-delete.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('home-page')
 
     def test_func(self):
         profile = get_object_or_404(Profile, pk=self.kwargs['pk'])

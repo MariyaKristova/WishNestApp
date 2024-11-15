@@ -1,0 +1,36 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        {% if object.profile.profile_image %}
+                            <img src="{{ object.profile.profile_image.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'images/logo.png' %}" alt="Default Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% endif %}
+                        <h2 class="card-title mb-3">Profile Details</h2>
+                    </div>
+
+                    <div class="profile-info">
+                        <p><strong>Email:</strong> {{ object.email }}</p>
+                        <p><strong>First Name:</strong> {{ object.profile.first_name|default:"Not provided" }}</p>
+                        <p><strong>Last Name:</strong> {{ object.profile.last_name|default:"Not provided" }}</p>
+                    </div>
+
+                    {% if user == object %}
+                    <div class="text-center mt-4">
+                        <a href="{% url 'profile-edit' pk=object.pk %}" class="btn btn-primary">Edit Profile</a>
+                        <a href="{% url 'profile-delete' pk=object.pk %}" class="btn btn-danger ml-2">Delete Profile</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

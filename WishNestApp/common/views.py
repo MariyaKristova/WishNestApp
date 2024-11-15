@@ -5,7 +5,7 @@ class HomePageView(TemplateView):
 
 # class DashboardView(ListView):
 #     model = Event
-#     template_name = 'dashboard.html'
+#     template_name = 'common/dashboard.html'
 #     context_object_name = 'events'
 
 
