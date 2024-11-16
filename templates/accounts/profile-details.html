@@ -20,6 +20,8 @@
                         <p><strong>Email:</strong> {{ object.email }}</p>
                         <p><strong>First Name:</strong> {{ object.profile.first_name|default:"Not provided" }}</p>
                         <p><strong>Last Name:</strong> {{ object.profile.last_name|default:"Not provided" }}</p>
+                        <p><strong>Events:</strong> {{ total_events }}</p>
+                        <p><strong>WishNests:</strong> N/A </p>
                     </div>
 
                     {% if user == object %}

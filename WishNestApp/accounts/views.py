@@ -44,15 +44,12 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = UserModel
     template_name = 'accounts/profile-details.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        # photos_with_likes = self.object.photo_set.annotate(likes_count=Count('like'))
-        # context['total_likes_count'] = sum(photo.likes_count for photo in photos_with_likes)
-        # context['total_pets_count'] = self.object.pet_set.count()
-        # context['total_photos_count'] = self.object.photo_set.count()
+        context['total_events'] = self.object.events.count()
 
-        # return context
+        return context
 
 class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Profile
