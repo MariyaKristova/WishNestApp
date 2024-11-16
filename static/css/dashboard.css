@@ -1,0 +1,83 @@
+.card {
+    transition: transform 0.2s;
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.btn-group .btn {
+    flex: 1;
+}
+
+.btn-group .btn i {
+    margin-right: 5px;
+}
+
+.card-text i {
+    width: 20px;
+    color: #6c757d;
+    margin-right: 8px;
+}
+
+.pagination .page-link {
+    color: #343a40;
+}
+
+.pagination .active .page-link {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
+.alert {
+    padding: 2rem;
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h2 {
+    margin-bottom: 0;
+}
+
+.event-card {
+    height: 100%;
+}
+
+.event-card .card-body {
+    padding: 1.25rem;
+}
+
+.event-card .card-footer {
+    background-color: white;
+    border-top: none;
+    padding: 1rem;
+}
+
+.event-description {
+    color: #6c757d;
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .event-card {
+        margin-bottom: 1rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn-group .btn {
+        margin-bottom: 0.5rem;
+    }
+}
