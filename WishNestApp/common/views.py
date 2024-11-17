@@ -11,4 +11,4 @@ class DashboardView(ListView):
     template_name = 'common/dashboard.html'
     context_object_name = 'events'
     ordering = ['date', 'time']
-    paginate_by = 6
+    paginate_by = 3
