@@ -5,7 +5,7 @@ from WishNestApp.wishnests.models import Wishnest
 class WishnestBaseForm(forms.ModelForm):
     class Meta:
         model = Wishnest
-        fields = ['event']
+        fields = []
 
 class WishnestAddForm(WishnestBaseForm):
     pass

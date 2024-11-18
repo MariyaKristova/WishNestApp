@@ -16,13 +16,14 @@ class EventCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
-        form.instance.host = self.request.user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 class EventDetailView(generic.DetailView):
     model = Event
     template_name = 'events/event-details.html'
     context_object_name = 'event'
+
 
 class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Event
@@ -37,9 +38,22 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView)
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})
 
-@login_required
-def event_delete(request, pk: int):
-    event = Event.objects.get(pk=pk)
-    if request.user == event.user:
-        event.delete()
-    return redirect('dashboard')
+
+class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Event
+    template_name = 'events/event-delete.html'
+    success_url = reverse_lazy('dashboard')
+    form_class = EventDeleteForm
+
+    def get_initial(self) -> dict:
+        return self.get_object().__dict__
+
+    def test_func(self):
+        event = get_object_or_404(Event, pk=self.kwargs['pk'])
+        return self.request.user == event.user
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'data': self.get_initial(),})
+
+        return kwargs

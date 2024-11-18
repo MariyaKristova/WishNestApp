@@ -11,8 +11,14 @@ class GiftAddView(LoginRequiredMixin, CreateView):
     template_name = 'wishnests/gift-add.html'
 
     def form_valid(self, form):
-        form.instance.wishnest.pk = self.object.wishnest.pk
+        form.instance.wishnest_id = self.kwargs['wishnest_pk']
+        form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['wishnest_pk'] = self.kwargs['wishnest_pk']
+        return context
 
     def get_success_url(self):
         return reverse_lazy('gift-details', kwargs={'pk': self.object.pk})

@@ -6,6 +6,6 @@ urlpatterns = [
     path('event/<int:pk>/', include([
         path('', views.EventDetailView.as_view(), name='event-details'),
         path('edit/', views.EventEditView.as_view(), name='event-edit'),
-        path('delete/', views.event_delete, name='event-delete'),
+        path('delete/', views.EventDeleteView.as_view(), name='event-delete'),
     ])),
 ]

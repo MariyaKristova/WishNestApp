@@ -19,7 +19,7 @@
                     {% if user == object.user %}
                     <div class="row mt-3">
                         <div class="col-12">
-                            <a href="{% url 'wishnest-edit' object.pk %}" class="btn btn-custom">Edit Wishnest</a>
+                            <a href="{% url 'gift-add' wishnest_pk=wishnest.pk %}" class="btn btn-custom">Add Your Wish</a>
                             <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
                         </div>
                     </div>

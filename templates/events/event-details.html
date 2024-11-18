@@ -5,12 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">{{ event.title }}</h3>
-                </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Left Column -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-bold">Occasion</label>
@@ -25,7 +21,6 @@
                                 <p>{{ event.date }}</p>
                             </div>
                         </div>
-                        <!-- Right Column -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-bold">Time</label>
@@ -36,16 +31,17 @@
                                 <p>{{ event.location }}</p>
                             </div>
                             <div class="form-group">
-                                <label class="font-weight-bold">Host</label>
-                                <p>{{ event.host.username }}</p>
+                                <label class="font-weight-bold">Wishlists</label>
+                                <p>n/a</p>
                             </div>
                         </div>
                     </div>
-                    {% if user == event.host %}
+                    {% if user == event.user %}
                     <div class="row mt-3">
                         <div class="col-12">
                             <a href="{% url 'event-edit' event.pk %}" class="btn btn-custom">Edit Event</a>
                             <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom">Delete Event</a>
+                            <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add new WishNest</a>
                         </div>
                     </div>
                     {% endif %}

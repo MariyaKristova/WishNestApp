@@ -12,10 +12,16 @@ class WishnestAddView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.event_id = self.kwargs['event_pk']
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['event_pk'] = self.kwargs['event_pk']
+        return context
+
     def get_success_url(self):
-        return reverse('event-details', kwargs={'pk': self.object.event.pk})
+        return reverse_lazy('wishnest-details', kwargs={'pk': self.object.pk})
 
 class WishnestDetailsView(LoginRequiredMixin, DetailView):
     model = Wishnest
@@ -24,7 +30,7 @@ class WishnestDetailsView(LoginRequiredMixin, DetailView):
 class WishnestEditView(LoginRequiredMixin, UpdateView):
     model = Wishnest
     form_class = WishnestEditForm
-    template_name = 'wishnests/wishnest-details.html'
+    template_name = 'wishnests/wishnest-edit.html'
 
     def test_func(self):
         event = get_object_or_404(Wishnest, pk=self.kwargs['pk'])
