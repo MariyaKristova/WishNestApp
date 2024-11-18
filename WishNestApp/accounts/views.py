@@ -13,11 +13,6 @@ UserModel = get_user_model()
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
 
-    def get_success_url(self):
-        return reverse_lazy(
-            'common/dashboard.html'
-        )
-
 class RegisterView(CreateView):
     model = UserModel
     form_class = UserCreateForm

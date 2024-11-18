@@ -5,15 +5,12 @@
 {% endblock %}
 {% block content %}
 <div class="container mt-4">
-    <!-- Dashboard Header -->
     <div class="d-flex justify-content-between align-items-center dashboard-header">
         <h2>My Events</h2>
-        <a href="#" class="btn btn-primary">
+        <a href="{% url 'event-create' %}" class="btn btn-custom">
             <i class="fas fa-plus"></i> Create Event
         </a>
     </div>
-
-    <!-- Events Grid -->
     <div class="row">
         {% if events %}
             {% for event in events %}
@@ -34,13 +31,13 @@
                         </div>
                         <div class="card-footer">
                             <div class="btn-group w-100">
-                                <a href="#" class="btn btn-outline-info">
+                                <a href="{% url 'event-detail' event.pk %}" class="btn btn-outline-info">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <a href="#" class="btn btn-outline-warning">
-                                    <i class="fas fa-edit"></i> Edit
+                                <a href="{% url 'event-edit' event.pk %}" class="btn btn-outline-warning">
+                                    <i class="fas fa-edit"></i> <br> Edit
                                 </a>
-                                <a href="#" class="btn btn-outline-danger">
+                                <a href="{% url 'event-delete' event.pk %}" class="btn btn-outline-danger">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>
                             </div>
@@ -57,8 +54,6 @@
             </div>
         {% endif %}
     </div>
-
-    <!-- Pagination -->
     {% if is_paginated %}
         <nav aria-label="Page navigation" class="mt-4">
             <ul class="pagination justify-content-center">
