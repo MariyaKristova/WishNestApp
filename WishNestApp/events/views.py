@@ -47,3 +47,11 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteVie
     def test_func(self):
         event = self.get_object()
         return self.request.user == event.host
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'data': self.get_initial(),
+        })
+
+        return kwargs
