@@ -1,0 +1,32 @@
+{% extends 'common/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Wishnest Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Last Updated</label>
+                                <p>{{ object.updated_at }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if user == object.user %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <a href="{% url 'wishnest-edit' object.pk %}" class="btn btn-custom">Edit Wishnest</a>
+                            <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

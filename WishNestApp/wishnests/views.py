@@ -24,7 +24,7 @@ class WishnestDetailsView(LoginRequiredMixin, DetailView):
 class WishnestEditView(LoginRequiredMixin, UpdateView):
     model = Wishnest
     form_class = WishnestEditForm
-    template_name = 'wishnests/wishnest-edit.html'
+    template_name = 'wishnests/wishnest-details.html'
 
     def test_func(self):
         event = get_object_or_404(Wishnest, pk=self.kwargs['pk'])
