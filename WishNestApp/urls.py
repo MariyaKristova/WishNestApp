@@ -22,4 +22,6 @@ urlpatterns = [
     path('', include('WishNestApp.common.urls')),
     path('accounts/', include('WishNestApp.accounts.urls')),
     path('events/', include('WishNestApp.events.urls')),
+    path('wishnests/', include('WishNestApp.wishnests.urls')),
+    path('gifts/', include('WishNestApp.gifts.urls')),
 ]

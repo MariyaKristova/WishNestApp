@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -8,6 +10,7 @@ from WishNestApp.events.models import Event
 
 
 class EventCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Event
     template_name = 'events/event-create.html'
     form_class = EventCreateForm
     success_url = reverse_lazy('dashboard')
@@ -28,30 +31,15 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView)
     context_object_name = 'event'
 
     def test_func(self):
-        event = self.get_object()
-        return self.request.user == event.host
+        event = get_object_or_404(Event, pk=self.kwargs['pk'])
+        return self.request.user == event.user
 
     def get_success_url(self):
-        return reverse_lazy('event-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('event-details', kwargs={'pk': self.object.pk})
 
-
-class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
-    model = Event
-    template_name = 'events/event-delete.html'
-    success_url = reverse_lazy('dashboard')
-    form_class = EventDeleteForm
-
-    def get_initial(self) -> dict:
-        return self.get_object().__dict__
-
-    def test_func(self):
-        event = self.get_object()
-        return self.request.user == event.host
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update({
-            'data': self.get_initial(),
-        })
-
-        return kwargs
+@login_required
+def event_delete(request, pk: int):
+    event = Event.objects.get(pk=pk)
+    if request.user == event.user:
+        event.delete()
+    return redirect('dashboard')

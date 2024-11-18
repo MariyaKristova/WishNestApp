@@ -8,7 +8,7 @@ UserModel = get_user_model()
 class Event(models.Model):
     occasion = models.CharField(choices=EventChoices.choices, default=EventChoices.OTHER)
     description = models.TextField(null=True, blank=True)
-    host = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='events')
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='events')
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=200)
