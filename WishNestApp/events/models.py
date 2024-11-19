@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.utils.timezone import now
+from django.utils.timezone import now, make_aware
 from datetime import datetime
-
 from WishNestApp.accounts.models import Profile
 from WishNestApp.events.choices import EventChoices
 
@@ -20,4 +19,5 @@ class Event(models.Model):
     @property
     def is_past(self):
         event_datetime = datetime.combine(self.date, self.time)
+        event_datetime = make_aware(event_datetime)
         return event_datetime < now()

@@ -26,6 +26,9 @@
                         <a class="nav-link" href="{% url 'profile-details' user.profile.pk %}">Profile</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'past-events' %}">Past Events</a>
+                    </li>
+                    <li class="nav-item">
                         <form method="post" action="{% url 'logout' %}" class="d-inline">
                             {% csrf_token %}
                             <button type="submit" class="nav-link btn btn-link">Logout</button>

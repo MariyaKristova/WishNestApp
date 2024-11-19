@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 
+from WishNestApp.common.forms import HugForm
 from WishNestApp.events.forms import EventEditForm, EventDeleteForm, EventCreateForm
 from WishNestApp.events.models import Event
 
@@ -23,6 +24,11 @@ class EventDetailView(generic.DetailView):
     model = Event
     template_name = 'events/event-details.html'
     context_object_name = 'event'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hug_form'] = HugForm()
+        return context
 
 
 class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
