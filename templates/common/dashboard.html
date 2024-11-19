@@ -7,9 +7,15 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center dashboard-header">
         <h2>My Events</h2>
-        <a href="{% url 'event-create' %}" class="btn btn-custom">
-            <i class="fas fa-plus"></i> Create Event
-        </a>
+        <div class="d-flex flex-column gap-2">
+            <a href="{% url 'event-create' %}" class="btn btn-custom">
+                <i class="fas fa-plus"></i> Create Event
+            </a>
+            <br>
+            <a href="{% url 'past-events' %}" class="btn btn-custom">
+                <i class="fas fa-history"></i> Past Events
+            </a>
+        </div>
     </div>
     <div class="row">
         {% if events %}

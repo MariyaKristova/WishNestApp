@@ -13,21 +13,30 @@
             {% for event in past_events %}
                 <div class="col-md-4 mb-4">
                     <div class="card event-card shadow-sm">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">{{ past_events.get_occasion_display }}</h5>
-                        </div>
                         <div class="card-body">
                             <p class="card-text">
-                                <i class="far fa-calendar-alt"></i>{{ event.date }}<br>
-                                <i class="far fa-clock"></i>{{ event.time }}<br>
-                                <i class="fas fa-map-marker-alt"></i>{{ event.location }}
+                                <i class="far fa-calendar-alt"></i> {{ event.date }}<br>
+                                <i class="far fa-clock"></i> {{ event.time }}<br>
+                                <i class="fas fa-map-marker-alt"></i> {{ event.location }}
                             </p>
                         </div>
                         <div class="card-footer">
-                            <div class="btn-group w-100">
-
-                                </a>
-                            </div>
+                            <h5>Hugs:</h5>
+                            {% if event.hugs.exists %}
+                                {% for hug in event.hugs.all %}
+                                    <p>
+                                        <strong>{{ hug.name }}</strong>: {{ hug.text }}
+                                    </p>
+                                {% endfor %}
+                            {% else %}
+                                <p>No hugs yet.</p>
+                            {% endif %}
+                            <hr>
+                            <form method="post" action="{% url 'hug' event.pk %}">
+                                {% csrf_token %}
+                                {{ hug_form }}
+                                <button type="submit" class="btn btn-primary">Add Hug</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -35,7 +44,7 @@
         {% else %}
             <div class="col-12">
                 <div class="alert alert-info text-center">
-                    <h4>No events found</h4>
+                    <h4>No past events found</h4>
                 </div>
             </div>
         {% endif %}
