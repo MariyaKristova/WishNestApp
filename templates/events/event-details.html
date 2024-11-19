@@ -31,8 +31,14 @@
                                 <p>{{ event.location }}</p>
                             </div>
                             <div class="form-group">
-                                <label class="font-weight-bold">Wishlists</label>
-                                <p>n/a</p>
+                                <label class="font-weight-bold">Wishnests</label>
+                                {% for wishnest in object.wishnests.all %}
+                            <li class="list-group-item">
+                                <a href="{% url 'wishnest-details' wishnest.pk %}" class="btn btn-link">{{ wishnest.updated_at }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No wishnests added yet.</li>
+                        {% endfor %}
                             </div>
                         </div>
                     </div>

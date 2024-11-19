@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'WishNestApp.events',
     'WishNestApp.wishnests',
     'WishNestApp.gifts',
+    'WishNestApp.hugs',
     'cloudinary',
 ]
 

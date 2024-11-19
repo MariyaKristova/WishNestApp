@@ -8,7 +8,7 @@ from .forms import GiftAddForm, GiftEditForm, GiftDeleteForm
 class GiftAddView(LoginRequiredMixin, CreateView):
     model = Gift
     form_class = GiftAddForm
-    template_name = 'wishnests/gift-add.html'
+    template_name = 'gifts/gift-add.html'
 
     def form_valid(self, form):
         form.instance.wishnest_id = self.kwargs['wishnest_pk']
@@ -21,7 +21,7 @@ class GiftAddView(LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('gift-details', kwargs={'pk': self.object.pk})
+        return reverse_lazy('wishnest-details', kwargs={'pk': self.object.wishnest.pk})
 
 class GiftDetailsView(LoginRequiredMixin, DetailView):
     model = Gift
