@@ -5,7 +5,7 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Gift Details</h3>
+                    <h3 class="mb-0">Wish Details</h3>
                 </div>
                 <div class="card-body">
                     <p><strong>Description:</strong> {{ gift.description }}</p>
@@ -14,8 +14,8 @@
                     {% if gift.image %}
                         <img src="{{ gift.image.url }}" alt="Gift Image" class="img-fluid mt-3">
                     {% endif %}
-                    <a href="{% url 'gift-edit' pk=gift.pk %}" class="btn btn-warning mt-3">Edit Gift</a>
-                    <a href="{% url 'gift-delete' pk=gift.pk %}" class="btn btn-danger mt-3">Delete Gift</a>
+                    <a href="{% url 'gift-edit' pk=gift.pk %}" class="btn btn-warning mt-3">Edit Wish</a>
+                    <a href="{% url 'gift-delete' pk=gift.pk %}" class="btn btn-danger mt-3">Delete Wish</a>
                 </div>
             </div>
         </div>

@@ -9,19 +9,19 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Wishnest Details</h3>
+                    <h3 class="mb-0">{{ wishnest.title }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="font-weight-bold">Last Updated</label>
-                                <p>{{ object.updated_at }}</p>
+                                <label class="font-weight-bold">Created at</label>
+                                <p>{{ object.created_at }}</p>
                             </div>
                         </div>
                     </div>
                     
-                    <h5 class="mt-4">Gifts in this Wishnest</h5>
+                    <h5 class="mt-4">Wishes in this Wishnest</h5>
                     <ul class="list-group">
                         {% for gift in object.gifts.all %}
                             <li class="list-group-item">
@@ -42,6 +42,7 @@
                         <div class="col-12">
                             <a href="{% url 'gift-add' wishnest_pk=object.pk %}" class="btn btn-custom">Add Your Wish</a>
                             <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
+                            <a href="{% url 'event-details' wishnest.event_id %}" class="btn btn-custom">Return To Event</a>
                         </div>
                     </div>
                     {% endif %}

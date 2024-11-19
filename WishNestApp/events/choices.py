@@ -7,4 +7,6 @@ class EventChoices(models.TextChoices):
     GRADUATION = 'Graduation', 'Graduation'
     ANNIVERSARY = 'Anniversary', 'Anniversary'
     HOUSE_WARMING = 'House Warming', 'House Warming'
-    OTHER = 'Other', 'Other'
+    NEW_YEAR = 'New Year', 'New Year'
+    CHRISTMAS = 'Christmas', 'Christmas'
+    PARTY = 'Party', 'Party'

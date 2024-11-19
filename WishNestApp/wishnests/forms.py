@@ -8,7 +8,12 @@ class WishnestBaseForm(forms.ModelForm):
         fields = []
 
 class WishnestAddForm(WishnestBaseForm):
-    pass
+    class Meta:
+        model = Wishnest
+        fields = ['title']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Add title...'}),
+        }
 
 class WishnestEditForm(WishnestBaseForm):
     pass
