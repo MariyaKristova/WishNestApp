@@ -23,10 +23,6 @@
                                 <label class="font-weight-bold">Description</label>
                                 <p>{{ event.description }}</p>
                             </div>
-                            <div class="form-group">
-                                <label class="font-weight-bold">Date</label>
-                                <p>{{ event.date }}</p>
-                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -52,10 +48,10 @@
                         </div>
                     </div>
 
-                    {% if event.is_past %}
-                        <!-- Past Event -->
+                   {% if event.is_past %}
                         <div class="card-footer">
-                            <h5>Hugs:</h5>
+                            <h5>Hugs & Kisses:</h5>
+                            
                             {% if event.hugs.exists %}
                                 {% for hug in event.hugs.all %}
                                     <p>
@@ -66,21 +62,29 @@
                                 <p>No hugs yet.</p>
                             {% endif %}
                             <hr>
-                            <form method="post" action="{% url 'hug' event.pk %}">
-                                {% csrf_token %}
-                                {{ hug_form }}
-                                <button type="submit" class="btn btn-primary">Add Hug</button>
-                            </form>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <form method="post" action="{% url 'hug' event.pk %}" class="d-inline">
+                                        {% csrf_token %}
+                                        {{ hug_form }}
+                                        <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
+                                    </form>
+                                    {% if user == event.user %}
+                                        <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
+                                        <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add new WishNest</a>
+                                    {% endif %}
+                                </div>>
+                            </div>
                         </div>
                     {% else %}
                         {% if user == event.user %}
-                        <div class="row mt-3">
-                            <div class="col-12">
-                                <a href="{% url 'event-edit' event.pk %}" class="btn btn-custom">Edit Event</a>
-                                <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom">Delete Event</a>
-                                <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add new WishNest</a>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <a href="{% url 'event-edit' event.pk %}" class="btn btn-custom">Edit Event</a>
+                                    <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom">Delete Event</a>
+                                    <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add new WishNest</a>
+                                </div>
                             </div>
-                        </div>
                         {% endif %}
                     {% endif %}
                 </div>

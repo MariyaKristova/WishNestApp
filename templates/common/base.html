@@ -11,7 +11,6 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="{% url 'home-page' %}">
             <img src="{% static 'images/logo.png' %}" alt="Wishnest Logo"> WishNest
@@ -20,18 +19,25 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto align-items-center">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile-details' user.profile.pk %}">Profile</a>
                     </li>
+                    {% if not request.path == '/past_events/' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'past-events' %}">Past Events</a>
                     </li>
+                    {% endif %}
+                    {% if not request.path == '/dashboard/' %}
                     <li class="nav-item">
-                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Upcoming Events</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" class="d-inline m-0 p-0">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link btn btn-link">Logout</button>
+                            <button type="submit" class="nav-link btn btn-link m-0 p-0">Logout</button>
                         </form>
                     </li>
                 {% else %}
@@ -45,6 +51,8 @@
             </ul>
         </div>
     </nav>
+
+
 
     <!-- Main Content -->
     {% block content %}
