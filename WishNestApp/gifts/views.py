@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, FormView
 from .models import Gift
-from .forms import GiftAddForm, GiftEditForm, GiftDeleteForm
+from .forms import GiftAddForm, GiftEditForm, GiftDeleteForm, GiftRegistrationForm
+from django.contrib import messages
 
 class GiftAddView(LoginRequiredMixin, CreateView):
     model = Gift
@@ -23,9 +24,33 @@ class GiftAddView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('wishnest-details', kwargs={'pk': self.object.wishnest.pk})
 
-class GiftDetailsView(LoginRequiredMixin, DetailView):
+class GiftDetailsView(DetailView):
     model = Gift
     template_name = 'gifts/gift-details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['registration_form'] = GiftRegistrationForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        # Handle form submission
+        self.object = self.get_object()
+        form = GiftRegistrationForm(request.POST)
+
+        if form.is_valid():
+            if self.object.is_registered:
+                messages.error(request, "This gift has already been registered.")
+            else:
+                # Update the gift as registered and save the name
+                self.object.is_registered = True
+                self.object.registered_by_name = form.cleaned_data['name']
+                self.object.save()
+                messages.success(request, f"Gift successfully registered by {form.cleaned_data['name']}!")
+
+        # Redirect to the same page
+        return redirect('wishnest-details', pk=self.object.wishnest.pk)
+
 
 class GiftEditView(LoginRequiredMixin, UpdateView):
     model = Gift

@@ -1,11 +1,16 @@
+from datetime import timedelta
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
-
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
 from WishNestApp.common.forms import HugForm
+from WishNestApp.common.models import ShareLink
 from WishNestApp.events.forms import EventEditForm, EventDeleteForm, EventCreateForm
 from WishNestApp.events.models import Event
 
@@ -28,8 +33,17 @@ class EventDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['hug_form'] = HugForm()
-        return context
 
+        if self.request.user == self.object.user:
+            share_link = ShareLink.objects.filter(event=self.object, expires_at__gt=timezone.now()).first()
+            if not share_link:
+                share_link = ShareLink.objects.create(event=self.object, expires_at=timezone.now() + timedelta(days=7))
+
+            current_site = get_current_site(self.request)
+            share_url = f"https://{current_site.domain}{reverse('shared-event', kwargs={'token': share_link.token})}"
+            context['share_url'] = share_url
+
+        return context
 
 class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Event
@@ -43,7 +57,6 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView)
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})
-
 
 class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Event

@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
-from .views import HugCreateView
+from .views import HugCreateView, SharedEventView
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home-page'),
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
     path('past_events/', views.PastEventsView.as_view(), name='past-events'),
     path('hug/<int:event_id>/', HugCreateView.as_view(), name='hug'),
+    path('share/<uuid:token>/', SharedEventView.as_view(), name='shared-event'),
 ]

@@ -1,10 +1,13 @@
-from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.generic import TemplateView, ListView, CreateView
 from WishNestApp.common.forms import HugForm
-from WishNestApp.common.models import Hug
+from WishNestApp.common.models import Hug, ShareLink
 from WishNestApp.events.models import Event
+from django.shortcuts import get_object_or_404, redirect
+from django.views import View
+from django.contrib import messages
+
 
 class HomePageView(TemplateView):
     template_name = 'common/home-page.html'
@@ -51,3 +54,18 @@ class HugCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.to_event.pk})
+
+
+class SharedEventView(View):
+    def get(self, request, token):
+        try:
+            share_link = ShareLink.objects.get(token=token)
+            if share_link.is_valid():
+                return redirect('event-details', pk=share_link.event.pk)
+            else:
+                messages.error(request, "This share link has expired.")
+                return redirect('home-page')
+
+        except ShareLink.DoesNotExist:
+            messages.error(request, "Invalid share link.")
+            return redirect('home-page')

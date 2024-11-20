@@ -23,7 +23,7 @@ class WishnestAddView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('wishnest-details', kwargs={'pk': self.object.pk})
 
-class WishnestDetailsView(LoginRequiredMixin, DetailView):
+class WishnestDetailsView(DetailView):
     model = Wishnest
     template_name = 'wishnests/wishnest-details.html'
 

@@ -7,15 +7,33 @@
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0">Wish Details</h3>
                 </div>
+            
                 <div class="card-body">
+                    {% if gift.is_registered %}
+                        <p class="text-success mt-3">
+                            This gift has been registered by {{ gift.registered_by_name }}.
+                        </p>
+                    {% else %}
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ registration_form }}
+                            <button type="submit" class="btn btn-custom mt-3">Register for this Wish</button>
+                        </form>
+                    {% endif %}
+                    <hr>
                     <p><strong>Description:</strong> {{ gift.description }}</p>
                     <p><strong>Price:</strong> ${{ gift.price }}</p>
                     <p><strong>URL:</strong> <a href="{{ gift.url }}" target="_blank">{{ gift.url }}</a></p>
                     {% if gift.image %}
                         <img src="{{ gift.image.url }}" alt="Gift Image" class="img-fluid mt-3">
                     {% endif %}
+                    {% if user == object.user %}
                     <a href="{% url 'gift-edit' pk=gift.pk %}" class="btn btn-warning mt-3">Edit Wish</a>
                     <a href="{% url 'gift-delete' pk=gift.pk %}" class="btn btn-danger mt-3">Delete Wish</a>
+                    {% endif %}
+                    <a href="{% url 'wishnest-details' object.wishnest_id  %}" class="btn btn-custom mt-3">Return to Wishnest</a>
+                    
+                
                 </div>
             </div>
         </div>
