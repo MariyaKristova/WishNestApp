@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.contrib import messages
 
-
 class HomePageView(TemplateView):
     template_name = 'common/home-page.html'
     def get(self, request, *args, **kwargs):
@@ -24,7 +23,7 @@ class DashboardView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Event.objects.filter(date__gte=now().date()).order_by('date', 'time')
+        return Event.objects.filter(user=self.request.user).filter(date__gte=now().date()).order_by('date', 'time')
 
 class PastEventsView(ListView):
     model = Event
@@ -34,7 +33,7 @@ class PastEventsView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Event.objects.filter(date__lt=now().date()).order_by('date', 'time')
+        return Event.objects.filter(user=self.request.user).filter(date__lt=now().date()).order_by('date', 'time')
 
 class HugCreateView(CreateView):
     model = Hug

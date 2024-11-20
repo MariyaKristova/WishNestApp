@@ -31,27 +31,27 @@
                                     <img src="{{ gift.image.url }}" alt="Gift Image" class="img-thumbnail" width="100">
                                 {% endif %}
                                 {% if gift.is_registered %}
-                                   <p class="text-success mt-3">
+                                    <p class="text-success mt-3">
                                         This gift has been registered by {{ gift.registered_by_name }}.
                                    </p>
-                                {% else %}
-                                    <a href="{% url 'gift-details' pk=gift.pk %}" class="btn btn-link">View Details</a>
+                                {% endif %}
+                                {% if not gift.is_registered or user == object.user %}
+                                    <a href="{% url 'gift-details' pk=gift.pk %}" class="btn btn-custom">View Details</a>
                                 {% endif %}
                             </li>
                         {% empty %}
                             <li class="list-group-item">No wishes added yet.</li>
                         {% endfor %}
                     </ul>
-
-                    {% if user == object.user %}
                     <div class="row mt-3">
                         <div class="col-12">
+                            {% if user == object.user %}
                             <a href="{% url 'gift-add' wishnest_pk=object.pk %}" class="btn btn-custom">Add Your Wish</a>
                             <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
-                            <a href="{% url 'event-details' wishnest.event_id %}" class="btn btn-custom">Cancel</a>
+                            {% endif %}
+                            <a href="{% url 'event-details' wishnest.event_id %}" class="btn btn-custom">Return to Event</a>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
