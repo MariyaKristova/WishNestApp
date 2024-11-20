@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white">
                     <h3 class="mb-0">Wish Details</h3>
                 </div>
             
@@ -22,8 +22,12 @@
                     {% endif %}
                     <hr>
                     <p><strong>Description:</strong> {{ gift.description }}</p>
-                    <p><strong>Price:</strong> ${{ gift.price }}</p>
+                    {% if gift.price %}
+                    <p><strong>Price in EUR:</strong> {{ gift.price }}</p>
+                    {% endif %}
+                    {% if gift.url %}
                     <p><strong>URL:</strong> <a href="{{ gift.url }}" target="_blank">{{ gift.url }}</a></p>
+                    {% endif %}
                     {% if gift.image %}
                         <img src="{{ gift.image.url }}" alt="Gift Image" class="img-fluid mt-3">
                     {% endif %}

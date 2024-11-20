@@ -35,11 +35,11 @@
                             <div class="form-group">
                                 <label class="font-weight-bold">Wishnests</label>
                                 {% for wishnest in object.wishnests.all %}
-                                    <li class="list-group-item">
+                                    <li>
                                         <a href="{% url 'wishnest-details' wishnest.pk %}" class="btn btn-link">{{ wishnest.title }}</a>
                                     </li>
                                 {% empty %}
-                                    <li class="list-group-item">No wishnests added yet.</li>
+                                    <li>No wishnests added yet.</li>
                                 {% endfor %}
                             </div>
                             {% endif %}
@@ -76,7 +76,7 @@
                         {% if user == event.user %}
                             <div class="row mt-3">
                                 <div class="col-12">
-                                    <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add new WishNest</a>
+                                    <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add New Wishnest</a>
                                     <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share Event</a>
                                     <a href="{% url 'event-edit' event.pk %}" class="btn btn-custom">Edit Event</a>
                                     <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom">Delete Event</a>

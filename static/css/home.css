@@ -3,7 +3,7 @@ body {
     background-size: cover;
     background-position: center;
     height: 100vh;
-    color: white;
+    color: #0c5460;
 }
 .navbar {
     background-color: rgba(0, 0, 0, 0.7);
@@ -22,6 +22,7 @@ body {
     text-align: center;
     color: darkolivegreen;
     background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
     padding: 20px;
     border-radius: 10px;
 }

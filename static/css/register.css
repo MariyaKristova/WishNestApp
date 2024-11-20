@@ -1,4 +1,3 @@
-/* Style form fields */
 form input, form select {
     display: block;
     width: 100%;
@@ -20,7 +19,6 @@ form label {
     font-weight: 500;
 }
 
-/* Style form error messages */
 .errorlist {
     color: #dc3545;
     list-style: none;
@@ -37,7 +35,6 @@ img {
     object-fit: cover;
 }
 
-/* Help text styling */
 .helptext {
     display: block;
     margin-top: -0.5rem;

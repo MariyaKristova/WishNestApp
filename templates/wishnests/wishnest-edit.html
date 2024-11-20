@@ -12,8 +12,8 @@
                         {% csrf_token %}
                         {{ form }}
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Update Wishnest</button>
-                            <a href="{% url 'wishnest-details' object.pk %}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-custom">Update Wishnest</button>
+                            <a href="{% url 'wishnest-details' object.pk %}" class="btn btn-custom">Cancel</a>
                         </div>
                     </form>
                 </div>

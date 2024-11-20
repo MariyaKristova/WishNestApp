@@ -16,8 +16,8 @@
                         {% csrf_token %}
                         
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-danger">Delete Profile</button>
-                            <a href="{% url 'profile-details' pk=object.pk %}" class="btn btn-secondary ml-2">Cancel</a>
+                            <button type="submit" class="btn btn-custom">Delete Profile</button>
+                            <a href="{% url 'profile-details' pk=object.pk %}" class="btn btn-custom">Cancel</a>
                         </div>
                     </form>
                 </div>

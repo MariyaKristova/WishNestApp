@@ -8,4 +8,4 @@ class Profile(models.Model):
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)
-    profile_image = CloudinaryField('image', folder='profile_images/')
+    profile_image = CloudinaryField('image', folder='profile_images/', blank=True, null=True)

@@ -5,9 +5,15 @@
 {% endblock %}
 {% block content %}
 <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center dashboard-header">
         <h2>Past Events</h2>
-    <h6>Past Events are saved for a week.</h6>
-    <h6> Hurry to send hugs & kisses to your guests!</h6>
+        <a href="{% url 'event-create' %}" class="btn btn-custom">
+            <i class="fas fa-plus"></i> Create Event
+        </a>
+        {% if past_events %}
+            <h6>Send hugs & kisses to your guests!</h6>
+    {% endif %}
+    </div>
     <div class="row">
         {% if past_events %}
             {% for event in past_events %}
@@ -35,7 +41,6 @@
             <div class="col-12">
                 <div class="alert alert-info text-center">
                     <h4>No events found</h4>
-                    <p class="mb-0">Start by creating your first event!</p>
                 </div>
             </div>
         {% endif %}

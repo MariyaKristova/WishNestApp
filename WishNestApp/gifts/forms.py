@@ -6,6 +6,18 @@ class GiftBaseForm(forms.ModelForm):
         model = Gift
         fields = ['image', 'description', 'price', 'url']
 
+        labels = {
+            'description': 'Add Description',
+            'price': 'Price in EUR:',
+            'image': 'Add New Image:',
+        }
+        widgets = {
+            'image': forms.FileInput(attrs={
+                'class': 'form-control',
+            })
+        }
+
+
 class GiftAddForm(GiftBaseForm):
     pass
 

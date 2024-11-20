@@ -1,6 +1,5 @@
 {% extends 'common/base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -14,8 +13,8 @@
                         {% csrf_token %}
                         {{ form }}
 
-                        <button type="submit" class="btn btn-primary">Create Event</button>
-                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-custom">Create Event</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-custom">Cancel</a>
                     </form>
                 </div>
             </div>

@@ -20,14 +20,12 @@
                         <p><strong>Email:</strong> {{ object.email }}</p>
                         <p><strong>First Name:</strong> {{ object.profile.first_name|default:"Not provided" }}</p>
                         <p><strong>Last Name:</strong> {{ object.profile.last_name|default:"Not provided" }}</p>
-                        <p><strong>Events:</strong> {{ total_events }}</p>
-                        <p><strong>WishNests:</strong> N/A </p>
                     </div>
 
                     {% if user == object %}
                     <div class="text-center mt-4">
-                        <a href="{% url 'profile-edit' pk=object.pk %}" class="btn btn-primary">Edit Profile</a>
-                        <a href="{% url 'profile-delete' pk=object.pk %}" class="btn btn-danger ml-2">Delete Profile</a>
+                        <a href="{% url 'profile-edit' pk=object.pk %}" class="btn btn-custom">Edit Profile</a>
+                        <a href="{% url 'profile-delete' pk=object.pk %}" class="btn btn-custom">Delete Profile</a>
                     </div>
                     {% endif %}
                 </div>

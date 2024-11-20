@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white">
                     <h3 class="mb-0">{{ wishnest.title }}</h3>
                 </div>
                 <div class="card-body">
@@ -21,12 +21,13 @@
                         </div>
                     </div>
                     
-                    <h5 class="mt-4">Wishes</h5>
+                    <h5 class="mt-4">Wishes:</h5>
                     <ul class="list-group">
                         {% for gift in object.gifts.all %}
                             <li class="list-group-item">
-                                <p><strong>Description:</strong> {{ gift.description }}</p>
-                                <p><strong>Price:</strong> ${{ gift.price }}</p>
+                                {% if gift.price %}
+                                <p><strong>Price in EUR:</strong> {{ gift.price }}</p>
+                                {% endif %}
                                 {% if gift.image %}
                                     <img src="{{ gift.image.url }}" alt="Gift Image" class="img-thumbnail" width="100">
                                 {% endif %}

@@ -15,17 +15,8 @@
 
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        
-                        {% if messages %}
-                        <div class="alert alert-danger">
-                            {% for message in messages %}
-                            {{ message }}
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-
+                        {{ form.errors }}
                         {{ form }}
-
                         <button type="submit" class="btn btn-custom btn-block">Register</button>
                     </form>
 

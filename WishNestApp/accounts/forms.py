@@ -15,6 +15,12 @@ class UserCreateForm(UserCreationForm):
         model = UserModel
         fields = ('email',)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None
+
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -22,5 +28,11 @@ class ProfileEditForm(forms.ModelForm):
         labels = {
             'first_name': 'First Name:',
             'last_name': 'Last Name:',
-            'profile_picture': 'Profile Picture:',
+            'profile_image': 'Add New Image:',
+        }
+
+        widgets = {
+            'profile_image': forms.FileInput(attrs={
+                'class': 'form-control',
+            })
         }

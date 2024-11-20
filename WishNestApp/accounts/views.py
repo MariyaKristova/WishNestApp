@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404
@@ -17,7 +17,12 @@ class RegisterView(CreateView):
     model = UserModel
     form_class = UserCreateForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('dashboard')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
 
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile
@@ -29,22 +34,12 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user == profile.user
 
     def get_success_url(self):
-        return reverse_lazy(
-            'profile-details',
-            kwargs={'pk': self.object.pk}
-        )
+        return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = UserModel
     template_name = 'accounts/profile-details.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['total_events'] = self.object.events.count()
-
-        return context
 
 class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Profile
@@ -52,5 +47,10 @@ class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('home-page')
 
     def test_func(self):
-        profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return self.request.user == profile.user
+        return self.request.user == self.get_object().user
+
+    def delete(self, request, *args, **kwargs):
+        user = self.get_object().user
+        response = super().delete(request, *args, **kwargs)
+        user.delete()
+        return response
