@@ -13,14 +13,6 @@
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-.btn-group .btn {
-    flex: 1;
-}
-
-.btn-group .btn i {
-    margin-right: 5px;
-}
-
 .card-text i {
     width: 20px;
     color: #6c757d;
@@ -73,13 +65,5 @@
 @media (max-width: 768px) {
     .event-card {
         margin-bottom: 1rem;
-    }
-
-    .btn-group {
-        flex-direction: column;
-    }
-
-    .btn-group .btn {
-        margin-bottom: 0.5rem;
     }
 }

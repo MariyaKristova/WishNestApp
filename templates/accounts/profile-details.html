@@ -1,6 +1,5 @@
 {% extends 'common/base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -24,8 +23,10 @@
 
                     {% if user == object %}
                     <div class="text-center mt-4">
-                        <a href="{% url 'profile-edit' pk=object.pk %}" class="btn btn-custom">Edit Profile</a>
-                        <a href="{% url 'profile-delete' pk=object.pk %}" class="btn btn-custom">Delete Profile</a>
+                        <div class="btn-group-custom">
+                            <a href="{% url 'profile-edit' pk=object.pk %}" class="btn btn-custom">Edit Profile</a>
+                            <a href="{% url 'profile-delete' pk=object.pk %}" class="btn btn-custom">Delete Profile</a>
+                        </div>
                     </div>
                     {% endif %}
                 </div>

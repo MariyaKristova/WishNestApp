@@ -1,6 +1,5 @@
 {% extends 'common/base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -16,8 +15,10 @@
                         {% csrf_token %}
                         
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-custom">Delete Profile</button>
-                            <a href="{% url 'profile-details' pk=object.pk %}" class="btn btn-custom">Cancel</a>
+                            <div class="btn-group-custom">
+                                <button type="submit" class="btn btn-custom">Delete Profile</button>
+                                <a href="{% url 'profile-details' pk=object.pk %}" class="btn btn-custom">Cancel</a>
+                            </div>
                         </div>
                     </form>
                 </div>

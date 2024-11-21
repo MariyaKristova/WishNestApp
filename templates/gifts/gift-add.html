@@ -11,6 +11,7 @@
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form }}
+                        {{ form.errors }}
                         <button type="submit" class="btn btn-primary">Add Wish</button>
                         <a href="{% url 'wishnest-details' pk=wishnest_pk %}" class="btn btn-secondary">Cancel</a>
                     </form>

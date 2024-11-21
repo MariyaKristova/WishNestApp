@@ -37,3 +37,26 @@ body {
     background-color: #004d00;
     border-color: #003300;
 }
+
+.btn-group-custom {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .btn-group-custom {
+        flex-direction: column;
+    }
+
+    .btn-custom {
+        width: 100%;
+    }
+}
+
+ul {
+    list-style-type: none; /* Removes bullet points */
+    padding: 0;            /* Removes padding */
+    margin: 0;             /* Optional: Removes margin */
+}
