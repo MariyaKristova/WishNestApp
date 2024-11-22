@@ -8,6 +8,6 @@ UserModel = get_user_model()
 
 class Wishnest(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='wishnests')
-    title = models.CharField(max_length=30, unique=True)
+    title = models.CharField(max_length=30)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='wishnests')
     created_at = models.DateTimeField(auto_now_add=True)

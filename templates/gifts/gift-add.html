@@ -5,15 +5,16 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Add New Wish To Wishnest</h3>
+                    <h3 class="mb-0">Add new wish to Wishnest</h3>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form }}
-                        {{ form.errors }}
-                        <button type="submit" class="btn btn-primary">Add Wish</button>
-                        <a href="{% url 'wishnest-details' pk=wishnest_pk %}" class="btn btn-secondary">Cancel</a>
+                        <div class="btn-group-custom">
+                            <button type="submit" class="btn btn-custom">Add Wish</button>
+                            <a href="{% url 'wishnest-details' pk=wishnest_pk %}" class="btn btn-custom">Cancel</a>
+                        </div>
                     </form>
                 </div>
             </div>

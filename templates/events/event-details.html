@@ -7,85 +7,74 @@
             <div class="card shadow">
                 <div class="card-header">
                     {% if event.is_past %}
-                    <h5 class="card-title mb-0">Hugs & Kisses after {{ event.occasion }} on {{ event.date }}</h5>
+                        <h5 class="card-title mb-0">Hugs & Kisses after {{ event.occasion }} on {{ event.date }}</h5>
                     {% else %}
                         <h5 class="card-title mb-0">{{ event.occasion }} on {{ event.date }}</h5>
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="font-weight-bold">Time</label>
-                                <p>{{ event.time }}</p>
-                            </div>
-                            {% if not event.is_past %}
-                            <div class="form-group">
-                                <label class="font-weight-bold">Description</label>
-                                <p>{{ event.description }}</p>
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="font-weight-bold">Location</label>
-                                <p>{{ event.location }}</p>
-                            </div>
-                            {% if not event.is_past %}
-                            <div class="form-group">
-                                <label class="font-weight-bold">Wishnests</label>
-                                <ul class="wishnest-list">
-                                    {% for wishnest in object.wishnests.all %}
-                                        <li>
-                                            <i class="far fa-feather"></i><a href="{% url 'wishnest-details' wishnest.pk %}" class="btn btn-link">{{ wishnest.title }}</a>
-                                        </li>
-                                    {% empty %}
-                                        <li>No wishnests added yet.</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
                    {% if event.is_past %}
-                        <div class="card-footer">
-                            {% if event.hugs.exists %}
-                                {% for hug in event.hugs.all %}
-                                    <p>
-                                        <strong>{{ hug.name }}</strong>: {{ hug.text }}
-                                    </p>
-                                {% endfor %}
-                            {% else %}
-                                <p>No hugs yet.</p>
-                            {% endif %}
-                            <hr>
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <form method="post" action="{% url 'hug' event.pk %}" class="d-inline">
-                                        {% csrf_token %}
-                                        {{ hug_form }}
-                                        <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
-                                    </form>
-                                    {% if user == event.user %}
-                                        <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share</a>
-                                        <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
-                                    {% endif %}
+                       {% if event.hugs.exists %}
+                           {% for hug in event.hugs.all %}
+                               <p>
+                                   <strong>{{ hug.name }}</strong>: {{ hug.text }}
+                               </p>
+                               <hr>
+                           {% endfor %}
+                       {% else %}
+                           <h4> <i class="fa-solid fa-heart-crack"></i> No hugs yet </h4>
+                       {% endif %}
+                       <div class="row mt-3">
+                           <div class="col-12">
+                               <form method="post" action="{% url 'hug' event.pk %}" class="d-inline">
+                                   {% csrf_token %}
+                                   {{ hug_form }}
+                                   <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
+                               </form>
+                               {% if user == event.user %}
+                                   <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share</a>
+                                   <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
+                               {% endif %}
+                           </div>
+                       </div>
+                   {% else %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Time</label>
+                                    <p>{{ event.time }}</p>
+                                    <label class="font-weight-bold">Description</label>
+                                    <p>{{ event.description }}</p>
+                                    <label class="font-weight-bold">RSVP to</label>
+                                    <p>{{ user.email }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Location</label>
+                                    <p>{{ event.location }}</p>
+                                    <label class="font-weight-bold">Wishnests</label>
+                                    <ul class="wishnest-list">
+                                        {% for wishnest in object.wishnests.all %}
+                                            <li>
+                                                <i class="fas fa-feather"></i><a href="{% url 'wishnest-details' wishnest.pk %}" class="btn btn-link">{{ wishnest.title }}</a>
+                                            </li>
+                                        {% empty %}
+                                            <li>No wishnests added yet.</li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    {% else %}
                         {% if user == event.user %}
-                            <div class="row mt-3">
-                                <div class="btn-group-custom">
+                            <div class="btn-group-custom">
                                     <a href="{% url 'wishnest-add' event_pk=event.pk %}" class="btn btn-custom">Add New Wishnest</a>
                                     <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share Event</a>
                                     <a href="{% url 'event-edit' event.pk %}" class="btn btn-custom">Edit Event</a>
                                     <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom">Delete Event</a>
-                                </div>
                             </div>
                         {% endif %}
-                    {% endif %}
+                   {% endif %}
                 </div>
             </div>
         </div>

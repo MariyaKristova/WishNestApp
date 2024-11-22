@@ -28,14 +28,14 @@
     border-color: #343a40;
 }
 
-.alert {
-    padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
 .dashboard-header {
     margin-bottom: 2rem;
+    display: flex;
+    color: darkolivegreen;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .dashboard-header h2 {
@@ -66,4 +66,9 @@
     .event-card {
         margin-bottom: 1rem;
     }
+}
+
+.faded-image {
+    opacity: 0.5; /* Reduce opacity to make the image lighter */
+    filter: grayscale(100%); /* Optional: Adds a grayscale effect to indicate it's not available */
 }

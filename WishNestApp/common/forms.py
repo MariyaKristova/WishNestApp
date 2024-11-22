@@ -6,6 +6,6 @@ class HugForm(forms.ModelForm):
         model = Hug
         fields = ['name', 'text']
         widgets = {
-            'text': forms.Textarea(attrs={'placeholder': 'Add your text here...'}),
-            'name': forms.TextInput(attrs={'placeholder': 'Enter your name...'}),
+            'text': forms.Textarea(attrs={'placeholder': 'Add your text here...', 'maxlength': 30}),
+            'name': forms.TextInput(attrs={'placeholder': 'Enter your name...', 'maxlength': 100}),
         }

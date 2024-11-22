@@ -14,7 +14,7 @@ class GiftBaseForm(forms.ModelForm):
         widgets = {
             'image': forms.FileInput(attrs={
                 'class': 'form-control',
-            })
+            }),
         }
 
 
@@ -29,3 +29,9 @@ class GiftDeleteForm(GiftBaseForm):
 
 class GiftRegistrationForm(forms.Form):
     name = forms.CharField(max_length=100, label="Enter your name...")
+
+    widgets = {
+        'name': forms.TextInput(attrs={
+            'maxlength': 50,
+        }),
+    }

@@ -31,6 +31,13 @@ body {
     border-color: #004d00;
     color: white;
     padding: 10px;
+    text-align: center;
+    width: 20ch; /* Ensures all buttons have the same width */
+    max-width: 20ch; /* Keeps buttons within the specified max width */
+    white-space: nowrap; /* Prevents text from wrapping inside buttons */
+    overflow: hidden; /* Hides overflowing text, if any */
+    text-overflow: ellipsis; /* Adds "..." if the text is too long */
+    box-sizing: border-box; /* Ensures padding is included in the button size */
 }
 
 .btn-custom:hover {
@@ -43,20 +50,26 @@ body {
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 20px; /* Add some space on top */
 }
 
 @media (max-width: 768px) {
     .btn-group-custom {
         flex-direction: column;
+        align-items: center; /* Centers buttons on smaller screens */
     }
 
     .btn-custom {
-        width: 100%;
+        width: 100%; /* Make buttons full-width on smaller screens */
+        max-width: 100%; /* Allow buttons to take up all available space */
+        padding: 12px; /* Slightly increase padding for better spacing */
+        margin-bottom: 10px; /* Add space between buttons */
     }
 }
 
+
 ul {
-    list-style-type: none; /* Removes bullet points */
-    padding: 0;            /* Removes padding */
-    margin: 0;             /* Optional: Removes margin */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }

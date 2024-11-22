@@ -19,36 +19,44 @@
                     </div>
                     
                     <h5 class="mt-4">Wishes:</h5>
-                    <ul class="list-group">
+                    <div class="row">
                         {% for gift in object.gifts.all %}
-                            <li class="list-group-item">
-                                {% if gift.price %}
-                                <p><strong>Price in EUR:</strong> {{ gift.price }}</p>
-                                {% endif %}
-                                {% if gift.image %}
-                                    <img src="{{ gift.image.url }}" alt="Gift Image" class="img-thumbnail" width="100">
-                                {% endif %}
-                                {% if gift.is_registered %}
-                                    <p class="text-success mt-3">
-                                        This gift has been registered by {{ gift.registered_by_name }}.
-                                   </p>
-                                {% endif %}
-                                {% if not gift.is_registered or user == object.user %}
-                                    <a href="{% url 'gift-details' pk=gift.pk %}" class="btn btn-custom">View Details</a>
-                                {% endif %}
-                            </li>
+                            <div class="col-md-6 mb-4"> 
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body text-center wishes">
+                                        {% if not gift.is_registered or user == object.user %}
+                                            <a href="{% url 'gift-details' pk=gift.pk %}">
+                                        {% endif %}
+                                        {% if gift.image %}
+                                            <img src="{{ gift.image.url }}" alt="Wish Image" class="img-thumbnail mb-3 {% if gift.is_registered %}faded-image{% endif %}" style="width: 130px;">
+                                        {% else %}
+                                            <img src="{% static 'images/wish.jpeg' %}" alt="Default Wish Picture" class="img-thumbnail mb-3 {% if gift.is_registered %}faded-image{% endif %}" style="width: 130px;">
+                                        {% endif %}
+                                        {% if not gift.is_registered or user == object.user %}
+                                            </a>
+                                        {% endif %}
+                                        <p class="text-truncate mb-0" style="max-width: 150px;">{{ gift.name }}</p>
+                                        {% if gift.is_registered %}
+                                            <small class="text-success d-block">
+                                                Registered by {{ gift.registered_by_name }}
+                                            </small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
                         {% empty %}
-                            <li class="list-group-item">No wishes added yet.</li>
+                            <div class="col-12">
+                                <p class="text-muted">No wishes added yet.</p>
+                            </div>
                         {% endfor %}
-                    </ul>
-                    <div class="row mt-3">
-                        <div class="col-12">
+                    </div>
+                    <br>
+                    <div class="btn-group-custom">
                             {% if user == object.user %}
-                            <a href="{% url 'gift-add' wishnest_pk=object.pk %}" class="btn btn-custom">Add Your Wish</a>
+                            <a href="{% url 'gift-add' wishnest_pk=object.pk %}" class="btn btn-custom">Add your Wish</a>
                             <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
                             {% endif %}
                             <a href="{% url 'event-details' wishnest.event_id %}" class="btn btn-custom">Return to Event</a>
-                        </div>
                     </div>
                 </div>
             </div>
