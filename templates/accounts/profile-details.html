@@ -10,7 +10,7 @@
                         {% if object.profile.profile_image %}
                             <img src="{{ object.profile.profile_image.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
                         {% else %}
-                            <img src="{% static 'images/logo.png' %}" alt="Default Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                            <img src="{% static 'images/favicon.png' %}" alt="Default Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
                         {% endif %}
                         <h2 class="card-title mb-3">Profile Details</h2>
                     </div>
