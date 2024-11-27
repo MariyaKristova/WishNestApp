@@ -28,7 +28,7 @@ class GiftDeleteForm(GiftBaseForm):
     pass
 
 class GiftRegistrationForm(forms.Form):
-    name = forms.CharField(max_length=100, label="Enter your name...")
+    name = forms.CharField(max_length=50, label="Enter your name...")
 
     widgets = {
         'name': forms.TextInput(attrs={

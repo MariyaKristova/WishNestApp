@@ -15,16 +15,19 @@
 
                     <form method="POST">
                         {% csrf_token %}
-                        {{ form.errors }}
                         {{ form }}
-                        <button type="submit" class="btn btn-custom btn-block">Login</button>
+                        {{ form.email.errors }}
+                        {{ form.password.errors }}
+                        <div class="btn-group-custom">
+                        <button type="submit" class="btn btn-custom">Login</button>
+                        </div>
                     </form>
 
                     <hr class="my-4">
 
                     <div class="text-center">
                         <p class="text-muted">Don't have an account?</p>
-                        <a href="{% url 'register' %}" class="btn btn-outline-secondary">Create Account</a>
+                        <a href="{% url 'register' %}" class="btn btn-custom">Create Account</a>
                     </div>
                 </div>
             </div>
