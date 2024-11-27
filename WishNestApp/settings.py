@@ -32,6 +32,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# DEBUG = False
+#
+# ALLOWED_HOSTS = ['*', '127.0.0.1']
+
 # ALLOWED_HOSTS = ['e347-130-204-250-137.ngrok-free.app']
 #
 # CSRF_TRUSTED_ORIGINS = [
@@ -157,3 +161,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGOUT_REDIRECT_URL = reverse_lazy('home-page')
+HANDLER404 = 'WishNestApp.common.views.custom_403_view'
+HANDLER403 = 'WishNestApp.common.views.custom_403_view'

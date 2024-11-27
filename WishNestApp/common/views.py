@@ -6,7 +6,7 @@ from urllib3 import request
 from WishNestApp.common.forms import HugForm
 from WishNestApp.common.models import Hug, ShareLink
 from WishNestApp.events.models import Event
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib import messages
 
@@ -73,3 +73,9 @@ class SharedEventView(View):
         except ShareLink.DoesNotExist:
             messages.error(request, "Invalid share link.")
             return redirect('home-page')
+
+def custom_404_view(request, exception=None):
+    return render(request, '404.html', status=404)
+
+def custom_403_view(request, exception=None):
+    return render(request, '403.html', status=403)
