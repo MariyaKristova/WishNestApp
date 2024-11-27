@@ -1,11 +1,13 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from .models import Wishnest
 from .forms import WishnestAddForm, WishnestEditForm, WishnestDeleteForm
+from ..events.models import Event
 
-class WishnestAddView(LoginRequiredMixin, CreateView):
+
+class WishnestAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Wishnest
     form_class = WishnestAddForm
     template_name = 'wishnests/wishnest-add.html'
@@ -20,6 +22,10 @@ class WishnestAddView(LoginRequiredMixin, CreateView):
         context['event_pk'] = self.kwargs['event_pk']
         return context
 
+    def test_func(self):
+        event = get_object_or_404(Event, pk=self.kwargs['event_pk'])
+        return self.request.user == event.user
+
     def get_success_url(self):
         return reverse_lazy('wishnest-details', kwargs={'pk': self.object.pk})
 
@@ -27,22 +33,26 @@ class WishnestDetailsView(DetailView):
     model = Wishnest
     template_name = 'wishnests/wishnest-details.html'
 
-class WishnestEditView(LoginRequiredMixin, UpdateView):
+class WishnestEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Wishnest
     form_class = WishnestEditForm
     template_name = 'wishnests/wishnest-edit.html'
 
     def test_func(self):
-        event = get_object_or_404(Wishnest, pk=self.kwargs['pk'])
+        event = get_object_or_404(Event, pk=self.kwargs['event_pk'])
         return self.request.user == event.user
 
     def get_success_url(self):
         return reverse_lazy('wishnest-details', kwargs={'pk': self.object.pk})
 
-class WishnestDeleteView(LoginRequiredMixin, DeleteView):
+class WishnestDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Wishnest
     form_class = WishnestDeleteForm
     template_name = 'wishnests/wishnest-delete.html'
+
+    def test_func(self):
+        event = get_object_or_404(Event, pk=self.kwargs['event_pk'])
+        return self.request.user == event.user
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.event.pk})

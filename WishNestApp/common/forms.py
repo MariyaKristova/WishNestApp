@@ -4,8 +4,7 @@ from .models import Hug
 class HugForm(forms.ModelForm):
     class Meta:
         model = Hug
-        fields = ['name', 'text']
+        fields = ['text']
         widgets = {
-            'text': forms.Textarea(attrs={'placeholder': 'Add your text here...', 'maxlength': 30}),
-            'name': forms.TextInput(attrs={'placeholder': 'Enter your name...', 'maxlength': 100}),
+            'text': forms.Textarea(attrs={'placeholder': 'Add your text here...', 'maxlength': 100}),
         }

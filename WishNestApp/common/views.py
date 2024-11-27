@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.generic import TemplateView, ListView, CreateView
+from urllib3 import request
+
 from WishNestApp.common.forms import HugForm
 from WishNestApp.common.models import Hug, ShareLink
 from WishNestApp.events.models import Event
@@ -41,15 +43,18 @@ class HugCreateView(CreateView):
     template_name = 'common/past-events.html'
     context_object_name = 'form'
 
-    def form_valid(self, form):
-        event = get_object_or_404(Event, pk=self.kwargs['event_id'])
-        form.instance.to_event = event
-        return super().form_valid(form)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['event'] = get_object_or_404(Event, pk=self.kwargs['event_id'])
         return context
+
+    def form_valid(self, form):
+        event = get_object_or_404(Event, pk=self.kwargs['event_id'])
+        form.instance.email = self.request.user.email
+        form.instance.to_event = event
+
+        return super().form_valid(form)
+
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.to_event.pk})

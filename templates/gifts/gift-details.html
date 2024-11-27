@@ -28,7 +28,6 @@
                         {% if user.is_authenticated %}
                             <form method="post">
                                 {% csrf_token %}
-                                {{ registration_form }}
                                 <button type="submit" class="btn btn-custom mt-3">Register for this Wish</button>
                             </form>
                         {% else %}

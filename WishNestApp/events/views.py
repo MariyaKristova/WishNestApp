@@ -37,7 +37,7 @@ class EventDetailView(generic.DetailView):
         if self.request.user == self.object.user:
             share_link = ShareLink.objects.filter(event=self.object, expires_at__gt=timezone.now()).first()
             if not share_link:
-                share_link = ShareLink.objects.create(event=self.object, expires_at=timezone.now() + timedelta(days=7))
+                share_link = ShareLink.objects.create(event=self.object, expires_at=self.object.date + timedelta(days=7))
 
             current_site = get_current_site(self.request)
             share_url = f"https://{current_site.domain}{reverse('shared-event', kwargs={'token': share_link.token})}"

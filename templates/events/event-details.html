@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
+
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -17,13 +18,15 @@
                        {% if event.hugs.exists %}
                            {% for hug in event.hugs.all %}
                                <p>
-                                   <strong>{{ hug.name }}</strong>: {{ hug.text }}
+                                   <strong>{{ hug.email }}</strong>: {{ hug.text }}
                                </p>
                                <hr>
                            {% endfor %}
                        {% else %}
                            <h4> <i class="fa-solid fa-heart-crack"></i> No hugs yet </h4>
                        {% endif %}
+                       
+                       {% if user.is_authenticated %}
                        <div class="row mt-3">
                            <div class="col-12">
                                <form method="post" action="{% url 'hug' event.pk %}" class="d-inline">
@@ -31,12 +34,16 @@
                                    {{ hug_form }}
                                    <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
                                </form>
-                               {% if user == event.user %}
-                                   <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share</a>
-                                   <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
-                               {% endif %}
                            </div>
                        </div>
+                       {% else %}
+                           <p class="text-danger">You must be logged in to register for this gift.</p>
+                           <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-custom">Login</a>
+                       {% endif %}
+                       {% if user == event.user %}
+                           <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share</a>
+                           <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
+                       {% endif %}
                    {% else %}
                         <div class="row">
                             <div class="col-md-6">
