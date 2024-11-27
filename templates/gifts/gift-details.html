@@ -9,18 +9,6 @@
                     <h3 class="mb-0">Wish Details</h3>
                 </div>
                 <div class="card-body">
-                    {% if gift.is_registered %}
-                        <p class="text-success mt-3">
-                            This gift has been registered by {{ gift.registered_by_name }}.
-                        </p>
-                    {% else %}
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ registration_form }}
-                            <button type="submit" class="btn btn-custom mt-3">Register for this Wish</button>
-                        </form>
-                    {% endif %}
-                    <hr>
                     <p><strong>Description:</strong> {{ gift.description|default:'not provided' }}</p>
                     <p><strong>Price in EUR:</strong> {{ gift.price|default:'not provided' }}</p>
                     {% if gift.url %}
@@ -32,14 +20,30 @@
                         <img src="{% static 'images/wish.jpeg' %}" alt="Default Wish Picture" class="img-thumbnail" width="100">
                     {% endif %}
                     <hr>
+                    {% if gift.is_registered %}
+                        <p class="text-success mt-3">
+                            This gift has been registered by {{ gift.registered_by_email }}.
+                        </p>
+                    {% else %}
+                        {% if user.is_authenticated %}
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ registration_form }}
+                                <button type="submit" class="btn btn-custom mt-3">Register for this Wish</button>
+                            </form>
+                        {% else %}
+                            <p class="text-danger">You must be logged in to register for this gift.</p>
+                            <a href="{% url 'login'%}?next={{ request.path }}" class="btn btn-custom">Login</a>
+                        {% endif %}
+                    {% endif %}
+                    <hr>
                     <div class="btn-group-custom">
-                        {% if user == object.user %}
+                        {% if user == gift.user %}
                             <a href="{% url 'gift-edit' pk=gift.pk %}" class="btn btn-custom">Edit Wish</a>
                             <a href="{% url 'gift-delete' pk=gift.pk %}" class="btn btn-custom">Delete Wish</a>
                         {% endif %}
-                        <a href="{% url 'wishnest-details' object.wishnest_id  %}" class="btn btn-custom">Return to Wishnest</a>
+                        <a href="{% url 'wishnest-details' gift.wishnest_id %}" class="btn btn-custom">Return to Wishnest</a>
                     </div>
-                    
                 </div>
             </div>
         </div>

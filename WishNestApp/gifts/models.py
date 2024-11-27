@@ -13,4 +13,4 @@ class Gift(models.Model):
     url = models.URLField(blank=True, null=True)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='gifts')
     is_registered = models.BooleanField(default=False)
-    registered_by_name = models.CharField(max_length=50)
+    registered_by_email = models.EmailField(blank=True, null=True)

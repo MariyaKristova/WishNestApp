@@ -10,8 +10,17 @@
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
+                        
+                        {% if gift.image %}
+                            <div class="text-center mb-4">
+                                <p>Current Gift Image:</p>
+                                <img src="{{ gift.image.url }}" alt="Gift Image" class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                        {% endif %}
+                        
                         {{ form }}
                         {{ form.errors }}
+                        
                         <button type="submit" class="btn btn-custom">Update Wish</button>
                         <a href="{% url 'gift-details' pk=gift.pk %}" class="btn btn-custom">Cancel</a>
                     </form>

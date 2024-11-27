@@ -24,32 +24,30 @@ class GiftAddView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('wishnest-details', kwargs={'pk': self.object.wishnest.pk})
 
+
 class GiftDetailsView(DetailView):
     model = Gift
     template_name = 'gifts/gift-details.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['registration_form'] = GiftRegistrationForm()
+        if self.request.user.is_authenticated:
+            context['registration_form'] = GiftRegistrationForm(user=self.request.user)
+        else:
+            context['registration_form'] = GiftRegistrationForm()
+
         return context
 
     def post(self, request, *args, **kwargs):
-        # Handle form submission
         self.object = self.get_object()
-        form = GiftRegistrationForm(request.POST)
-
+        form = GiftRegistrationForm(request.POST, user=request.user)
         if form.is_valid():
-            if self.object.is_registered:
-                messages.error(request, "This gift has already been registered.")
-            else:
-                # Update the gift as registered and save the name
-                self.object.is_registered = True
-                self.object.registered_by_name = form.cleaned_data['name']
-                self.object.save()
-                messages.success(request, f"Gift successfully registered by {form.cleaned_data['name']}!")
+            self.object.is_registered = True
+            self.object.registered_by_email = form.cleaned_data['email']
+            self.object.save()
+            messages.success(request, f"Gift successfully registered by {form.cleaned_data['email']}!")
 
-        # Redirect to the same page
-        return redirect('wishnest-details', pk=self.object.wishnest.pk)
+        return redirect('wishnest-details', kwargs={'pk': self.object.wishnest.pk})
 
 
 class GiftEditView(LoginRequiredMixin, UpdateView):

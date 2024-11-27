@@ -28,10 +28,10 @@ class GiftDeleteForm(GiftBaseForm):
     pass
 
 class GiftRegistrationForm(forms.Form):
-    name = forms.CharField(max_length=50, label="Enter your name...")
+    email = forms.EmailField(disabled=True)
 
-    widgets = {
-        'name': forms.TextInput(attrs={
-            'maxlength': 50,
-        }),
-    }
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email

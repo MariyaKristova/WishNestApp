@@ -10,6 +10,12 @@
                         <h2 class="card-title">Edit Profile</h2>
                     </div>
                     <div class="card-body">
+                        {% if profile.profile_image %}
+                            <div class="text-center mb-4">
+                                <p>Current Profile Picture:</p>
+                                <img src="{{ profile.profile_image.url }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                        {% endif %}
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form }}
