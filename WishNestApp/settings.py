@@ -138,17 +138,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dmb8ixiow',
-    'API_KEY': '939484479975593',
-    'API_SECRET': 'mFPEOg3sQpliDQ3ZBLefcq4auTI'
-}
-
 cloudinary.config(
-    cloud_name = "dmb8ixiow",
-    api_key = "939484479975593",
-    api_secret = "mFPEOg3sQpliDQ3ZBLefcq4auTI",
-    secure=True
+    cloud_name = ".env.CLOUDINARY_CLOUD_NAME",
+    api_key = ".env.CLOUDINARY_API_KEY",
+    api_secret = ".env.CLOUDINARY_API_SECRET",
+    secure = True
 )
 
 # Default primary key field type
