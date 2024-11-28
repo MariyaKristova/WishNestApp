@@ -16,7 +16,7 @@ Assets:
 ### Dashboard
 The dashboard displays a list of upcoming events.
 
-![Dashboard](assets/dashboard.png)
+![Dashboard](static/assets/dashboard.png)
 
 
 _________________________
