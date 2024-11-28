@@ -13,10 +13,31 @@ _________________________
 
 Assets:
 
+### Home Page
+A starting page seen by unauthorized users.
+
+![Home_Page](static/assets/homepage.png)
+
 ### Dashboard
 The dashboard displays a list of upcoming events.
 
 ![Dashboard](static/assets/dashboard.png)
+
+### Event Details
+View event details and add wishnests.
+
+![Event](static/assets/event.png)
+
+### Wishnest Details
+View wishnest details and add your wishes.
+
+![Wishnest](static/assets/wishnest.png)
+
+### After-Party
+Send virtual hugs and kisses to your guests.
+
+![Hugs](static/assets/hug.png)
+
 
 
 _________________________
