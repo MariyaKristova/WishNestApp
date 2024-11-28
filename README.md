@@ -9,8 +9,17 @@ After-Party Love: Keep the joy alive by sending virtual hugs and kisses to your 
 At WishNest, we believe in the power of connection and the magic of making wishes come true. Whether you're the host or a guest, there's something here to make every moment unforgettable.
 
 🎉 Join the WishNest today and let your wishes take flight!
+_________________________
+
+Assets:
+
+### Dashboard
+The dashboard displays a list of upcoming events.
+
+![Dashboard](assets/dashboard.png)
 
 
+_________________________
 Testing credentials:
 
 Super User:
