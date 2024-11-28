@@ -20,12 +20,23 @@
 }
 
 .pagination .page-link {
-    color: #343a40;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    color: #333;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination .page-link:hover {
+    background-color: darkolivegreen;
+    color: white;
 }
 
 .pagination .active .page-link {
-    background-color: #343a40;
-    border-color: #343a40;
+    background-color: darkolivegreen;
+    color: white;
+    border-color: white;
 }
 
 .dashboard-header {

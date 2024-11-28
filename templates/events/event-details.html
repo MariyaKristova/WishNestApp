@@ -32,17 +32,19 @@
                                <form method="post" action="{% url 'hug' event.pk %}" class="d-inline">
                                    {% csrf_token %}
                                    {{ hug_form }}
-                                   <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
+                                       <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
                                </form>
                            </div>
                        </div>
                        {% else %}
-                           <p class="text-danger">You must be logged in to register for this gift.</p>
-                           <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-custom">Login</a>
+                           <p class="text-danger">You must be logged in to send Hugs & Kisses.</p>
+                               <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-custom">Login</a>
                        {% endif %}
                        {% if user == event.user %}
-                           <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share</a>
-                           <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
+                           <div class="btn-group-custom">
+                               <a href="#" class="btn btn-custom" data-toggle="modal" data-target="#share-modal">Share</a>
+                               <a href="{% url 'event-delete' event.pk %}" class="btn btn-custom mx-2">Delete Event</a>
+                           </div>
                        {% endif %}
                    {% else %}
                         <div class="row">

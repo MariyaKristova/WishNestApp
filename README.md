@@ -58,3 +58,7 @@ wishnest_1234
 Normal User (guest of the event):
 test_guest@test.com
 wishnest_guest1234
+
+Normal User (guest of the event):
+test_guest2@test.com
+wishnest_guest12345

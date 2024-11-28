@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.generic import TemplateView, ListView, CreateView
@@ -17,7 +18,7 @@ class HomePageView(TemplateView):
             return redirect('dashboard')
         return super().get(request, *args, **kwargs)
 
-class DashboardView(ListView):
+class DashboardView(LoginRequiredMixin, ListView):
     model = Event
     template_name = 'common/dashboard.html'
     context_object_name = 'events'
@@ -27,7 +28,7 @@ class DashboardView(ListView):
     def get_queryset(self):
         return Event.objects.filter(user=self.request.user).filter(date__gte=now().date()).order_by('date', 'time')
 
-class PastEventsView(ListView):
+class PastEventsView(LoginRequiredMixin, ListView):
     model = Event
     template_name = 'common/past-events.html'
     context_object_name = 'past_events'

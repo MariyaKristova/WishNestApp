@@ -1,5 +1,4 @@
 from django import forms
-from django.utils import timezone
 from WishNestApp.events.models import Event
 
 
@@ -8,9 +7,14 @@ class EventBaseForm(forms.ModelForm):
         model = Event
         fields = ['occasion', 'description', 'date', 'time', 'location']
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}),
-            'time': forms.TimeInput(attrs={'type': 'time'}),
-            'description': forms.Textarea(attrs={'rows': 2}),
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+            'description': forms.Textarea(attrs={
+                'rows': 2,
+                'class': 'form-control',
+            }),
+            'occasion': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 class EventCreateForm(EventBaseForm):

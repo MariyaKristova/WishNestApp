@@ -1,10 +1,11 @@
 body {
-    background-image: url("/static/images/background2.png");
+    background-image: url('/static/images/background.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-position: center;
-    height: 100vh;
-    color: #0c5460;
 }
+
 .navbar {
     background-color: rgba(0, 0, 0, 0.7);
 }
