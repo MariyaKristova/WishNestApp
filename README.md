@@ -14,7 +14,7 @@ _________________________
 Assets:
 
 ### Home Page
-A starting page seen by unauthorized users.
+A starting page seen by unauthenticated users.
 
 ![Home_Page](static/assets/homepage.png)
 
