@@ -2,10 +2,18 @@ Welcome to WishNest, the ultimate platform for bringing your dreams to life! Whe
 
 🌟 Key Features:
 
-Event Creation: Plan and manage events effortlessly. From birthdays to anniversaries, organize every detail with ease.
-Share Your Wishes: Create a wish list and let your loved ones know what would make your day extra special.
-Gift Registry: Track and celebrate the thoughtful gifts you receive while ensuring every wish finds its home.
-After-Party Love: Keep the joy alive by sending virtual hugs and kisses to your guests after the celebration.
+Event Creation: 
+Plan and manage events effortlessly. From birthdays to anniversaries, organize every detail with ease.
+
+Share Your Wishes: 
+Create a wish list and let your loved ones know what would make your day extra special.
+
+Gift Registry: 
+Track and celebrate the thoughtful gifts you receive while ensuring every wish finds its home.
+
+After-Party Love: 
+Keep the joy alive by sending virtual hugs and kisses to your guests after the celebration.
+
 At WishNest, we believe in the power of connection and the magic of making wishes come true. Whether you're the host or a guest, there's something here to make every moment unforgettable.
 
 🎉 Join the WishNest today and let your wishes take flight!
