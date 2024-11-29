@@ -19,7 +19,7 @@ At WishNest, we believe in the power of connection and the magic of making wishe
 🎉 Join the WishNest today and let your wishes take flight!
 _________________________
 
-Assets:
+### Assets:
 
 ### Home Page
 A starting page seen by unauthenticated users.
