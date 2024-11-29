@@ -13,7 +13,7 @@ class EventBaseForm(forms.ModelForm):
                 'rows': 2,
                 'class': 'form-control',
             }),
-            'occasion': forms.TextInput(attrs={'class': 'form-control'}),
+            'occasion': forms.Select(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
