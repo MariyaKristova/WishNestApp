@@ -47,7 +47,8 @@ Send virtual hugs and kisses to your guests.
 ![Hugs](static/assets/hug.png)
 
 _________________________
-Testing credentials:
+
+### Testing credentials:
 
 Super User:
 test_superuser@test.com
@@ -70,20 +71,24 @@ test_guest2@test.com
 wishnest_guest12345
 __________________________
 
-Project setup
+### Project setup
 
 1. Clone the repo
 
+```
   git clone https://github.com/MariyaKristova/WishNestApp.git
+```
 
 2. Open the project
 
 3. Install dependencies
 
+```
   pip install -r requirements.txt
+```
 
 4. Change DB settings in settings.py
-
+```
   DATABASES = {
       "default": {
           "ENGINE": "django.db.backends.postgresql",
@@ -94,10 +99,16 @@ Project setup
           "PORT": "5432",
       }
   }
+ ``` 
+
 5. Run the migrations
 
+```
   python manage.py migrate
+```
 
 6. Run the project
 
+```
   python manage.py runserver
+```
