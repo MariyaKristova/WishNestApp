@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['1cb2-130-204-250-137.ngrok-free.app', 'localhost', '127.0.0.1']
 
@@ -156,3 +156,6 @@ LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGOUT_REDIRECT_URL = reverse_lazy('home-page')
 HANDLER404 = 'WishNestApp.common.views.custom_403_view'
 HANDLER403 = 'WishNestApp.common.views.custom_403_view'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
