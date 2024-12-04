@@ -13,6 +13,6 @@ def send_gift_registry_confirmation(sender, instance, created, **kwargs):
         send_mail(
             subject='Gift Registration Confirmation',
             from_email='WishNestMail@wishnest.com',
-            message='You successfully registered for a gift',
+            message='You successfully registered for a gift!',
             recipient_list=[instance.registered_by_email],
         )
