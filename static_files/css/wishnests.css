@@ -1,0 +1,16 @@
+.container {
+    padding: 20px;
+    border-radius: 10px;
+}
+.card-header {
+    font-size: 1.2em;
+    background-color: #f8d7da;
+    color: white;
+}
+.wishes {
+    background-color: beige;
+}
+
+.wishes img {
+    max-width: 300px;
+}

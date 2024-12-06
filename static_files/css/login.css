@@ -1,0 +1,15 @@
+.card-body {
+    padding: 1.5rem;
+    background-color: #bec0a7;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.card {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group-text {
+    background: transparent;
+}
