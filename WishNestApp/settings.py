@@ -159,8 +159,12 @@ LOGOUT_REDIRECT_URL = reverse_lazy('home-page')
 HANDLER404 = 'WishNestApp.common.views.custom_403_view'
 HANDLER403 = 'WishNestApp.common.views.custom_403_view'
 
-CELERY_BROKER_URL = f'redis://:{config("REDIS_PASSWORD")}@redis-17970.c251.east-us-mz.azure.redns.redis-cloud.com:17970/0'
-CELERY_RESULT_BACKEND = f'redis://:{config("REDIS_PASSWORD")}@redis-17970.c251.east-us-mz.azure.redns.redis-cloud.com:17970/0'
+REDIS_HOST = "redis-17970.c251.east-us-mz.azure.redns.redis-cloud.com"
+REDIS_PORT = 17970
+REDIS_PASSWORD = config("REDIS_PASSWORD")
+REDIS_DB = 0
+CELERY_BROKER_URL = f'redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}'
+CELERY_RESULT_BACKEND = f'redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}'
 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
