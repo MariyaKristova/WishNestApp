@@ -159,10 +159,10 @@ LOGOUT_REDIRECT_URL = reverse_lazy('home-page')
 HANDLER404 = 'WishNestApp.common.views.custom_403_view'
 HANDLER403 = 'WishNestApp.common.views.custom_403_view'
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
 
-CELERY_BROKER_URL=config('CELERY_BROKER_URL')
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
