@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from WishNestApp.gifts.models import Gift
 from WishNestApp.gifts.tasks import send_gift_registry_email
 
