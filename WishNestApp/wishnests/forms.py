@@ -15,8 +15,5 @@ class WishnestAddForm(WishnestBaseForm):
             'title': forms.TextInput(attrs={'placeholder': 'Add title...'}),
         }
 
-class WishnestEditForm(WishnestBaseForm):
-    pass
-
 class WishnestDeleteForm(WishnestBaseForm):
     pass

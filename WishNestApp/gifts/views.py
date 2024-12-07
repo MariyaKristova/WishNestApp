@@ -55,13 +55,9 @@ class GiftDetailsView(DetailView, FormView):
 
     def form_valid(self, form):
         gift = self.get_object()
-        if gift.is_registered:
-            messages.error(self.request, "This gift has already been registered.")
-        else:
-            gift.is_registered = True
-            gift.registered_by_email = self.request.user.email
-            gift.save()
-            messages.success(self.request, "Gift successfully registered!")
+        gift.is_registered = True
+        gift.registered_by_email = self.request.user.email
+        gift.save()
         return super().form_valid(form)
 
     def get_success_url(self):
