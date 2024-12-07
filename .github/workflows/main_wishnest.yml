@@ -48,7 +48,7 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url | replace('http://', 'https://') }}
+      url: 'https://wishnest-g4ehfuahanahehd0.italynorth-01.azurewebsites.net'
     permissions:
       id-token: write #This is required for requesting the JWT
 
