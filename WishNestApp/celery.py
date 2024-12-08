@@ -13,6 +13,10 @@ app.conf.beat_schedule = {
         'task': 'WishNestApp.common.tasks.delete_expired_sharelinks',
         'schedule': crontab(hour='3', minute='0'),
     },
+    'delete_expired_events': {
+        'task': 'WishNestApp.events.tasks.delete_expired_events',
+        'schedule': crontab(hour='4', minute='0'),
+    },
 }
 
 
