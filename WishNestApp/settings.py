@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'WishNestApp.wishnests',
     'WishNestApp.gifts',
     'cloudinary',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
