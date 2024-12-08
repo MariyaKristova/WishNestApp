@@ -28,20 +28,34 @@ class DashboardView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Event.objects.filter(user=self.request.user).filter(date__gte=now().date()).order_by('date', 'time')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = "Upcoming Events"
+        context['show_subheader'] = False
+        return context
+
+
 class PastEventsView(LoginRequiredMixin, ListView):
     model = Event
-    template_name = 'common/past-events.html'
-    context_object_name = 'past_events'
+    template_name = 'common/dashboard.html'
+    context_object_name = 'events'
     ordering = ['date', 'time']
     paginate_by = 3
 
     def get_queryset(self):
         return Event.objects.filter(user=self.request.user).filter(date__lt=now().date()).order_by('date', 'time')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = "Past Events"
+        context['show_subheader'] = True
+        context['subheader'] = "Send hugs & kisses to your guests! Past events are saved for a week."
+        return context
+
 class HugCreateView(CreateView):
     model = Hug
     form_class = HugForm
-    template_name = 'common/past-events.html'
+    template_name = 'common/dashboard.html'
     context_object_name = 'form'
 
     def get_context_data(self, **kwargs):
