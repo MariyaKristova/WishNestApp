@@ -1,12 +1,15 @@
 import uuid
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from WishNestApp.events.models import Event
 
+UserModel = get_user_model()
 
 class Hug(models.Model):
-    email = models.EmailField(null=True, blank=True)
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     text = models.TextField(max_length=100)
     date_of_publication = models.DateTimeField(auto_now_add=True)
     to_event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='hugs')

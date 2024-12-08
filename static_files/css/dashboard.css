@@ -80,6 +80,6 @@
 }
 
 .faded-image {
-    opacity: 0.5; /* Reduce opacity to make the image lighter */
-    filter: grayscale(100%); /* Optional: Adds a grayscale effect to indicate it's not available */
+    opacity: 0.5;
+    filter: grayscale(100%);
 }

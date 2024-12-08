@@ -18,7 +18,7 @@
                        {% if event.hugs.exists %}
                            {% for hug in event.hugs.all %}
                                <p>
-                                   <strong>{{ hug.email }}</strong>: {{ hug.text }}
+                                   <strong>{{ hug.author }}</strong>: {{ hug.text }}
                                </p>
                                <hr>
                            {% endfor %}
@@ -27,15 +27,15 @@
                        {% endif %}
                        
                        {% if user.is_authenticated %}
-                       <div class="row mt-3">
-                           <div class="col-12">
+                           <div class="hugs-card">
                                <form method="post" action="{% url 'hug' event.pk %}" class="d-inline">
                                    {% csrf_token %}
                                    {{ hug_form }}
+                                   <div class="btn-group-custom">
                                        <button type="submit" class="btn btn-custom">Add Hug & Kiss</button>
+                                   </div>
                                </form>
                            </div>
-                       </div>
                        {% else %}
                            <p class="text-danger">You must be logged in to send Hugs & Kisses.</p>
                                <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-custom">Login</a>

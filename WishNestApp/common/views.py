@@ -51,7 +51,7 @@ class HugCreateView(CreateView):
 
     def form_valid(self, form):
         event = get_object_or_404(Event, pk=self.kwargs['event_id'])
-        form.instance.email = self.request.user.email
+        form.instance.author = self.request.user
         form.instance.to_event = event
 
         return super().form_valid(form)
