@@ -29,7 +29,7 @@ class GiftAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def test_func(self):
         wishnest = get_object_or_404(Wishnest, pk=self.kwargs['wishnest_pk'])
-        return self.request.user == wishnest.user
+        return self.request.user == wishnest.user or self.request.user.has_perm('gifts.add_gift')
 
 
 class GiftDetailsView(DetailView, FormView):
@@ -74,7 +74,7 @@ class GiftEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         gift = get_object_or_404(Gift, pk=self.kwargs['pk'])
-        return self.request.user == gift.user
+        return self.request.user == gift.user or self.request.user.has_perm('gifts.change_gift')
 
 
 class GiftDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -87,4 +87,4 @@ class GiftDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         gift = get_object_or_404(Gift, pk=self.kwargs['pk'])
-        return self.request.user == gift.user
+        return self.request.user == gift.user or self.request.user.has_perm('gifts.delete_gift')

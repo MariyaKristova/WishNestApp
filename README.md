@@ -54,6 +54,10 @@ Super User:
 test_superuser@test.com
 superuser1234
 
+Super Admin:
+super_admin@test.com
+wishnest1234
+
 Limited Admin:
 admin@test.com
 wishnest_admin
