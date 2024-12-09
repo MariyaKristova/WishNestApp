@@ -67,9 +67,7 @@ class HugCreateView(CreateView):
         event = get_object_or_404(Event, pk=self.kwargs['event_id'])
         form.instance.author = self.request.user
         form.instance.to_event = event
-
         return super().form_valid(form)
-
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.to_event.pk})

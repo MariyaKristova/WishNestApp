@@ -1,10 +1,9 @@
 from datetime import timedelta
-
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
-from django.views import generic
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -16,7 +15,7 @@ from WishNestApp.events.forms import EventEditForm, EventDeleteForm, EventCreate
 from WishNestApp.events.models import Event
 
 
-class EventCreateView(LoginRequiredMixin, generic.CreateView):
+class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     template_name = 'events/event-create.html'
     form_class = EventCreateForm
@@ -26,7 +25,7 @@ class EventCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class EventDetailView(generic.DetailView):
+class EventDetailView(DetailView):
     model = Event
     template_name = 'events/event-details.html'
     context_object_name = 'event'
@@ -46,7 +45,7 @@ class EventDetailView(generic.DetailView):
 
         return context
 
-class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+class EventEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Event
     template_name = 'events/event-edit.html'
     form_class = EventEditForm
@@ -61,7 +60,7 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView)
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})
 
-class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Event
     template_name = 'events/event-delete.html'
     success_url = reverse_lazy('dashboard')
@@ -77,5 +76,4 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteVie
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.update({'data': self.get_initial(),})
-
         return kwargs

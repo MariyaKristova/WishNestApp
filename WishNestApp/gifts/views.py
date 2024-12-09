@@ -37,24 +37,10 @@ class GiftDetailsView(DetailView, FormView):
     template_name = 'gifts/gift-details.html'
     form_class = GiftRegistrationForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context['registration_form'] = self.get_form()
-        else:
-            context['registration_form'] = None
-        return context
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form(self.get_form_class())
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
     def form_valid(self, form):
         gift = self.get_object()
+        if gift.is_registered:
+            return redirect(self.get_success_url())
         gift.is_registered = True
         gift.registered_by_email = self.request.user.email
         gift.save()
@@ -63,6 +49,7 @@ class GiftDetailsView(DetailView, FormView):
     def get_success_url(self):
         gift = self.get_object()
         return reverse_lazy('wishnest-details', kwargs={'pk': gift.wishnest.pk})
+
 
 class GiftEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Gift
@@ -74,7 +61,7 @@ class GiftEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         gift = get_object_or_404(Gift, pk=self.kwargs['pk'])
-        return self.request.user == gift.user or self.request.user.has_perm('gifts.change_gift')
+        return self.request.user == gift.user and not gift.is_registered or self.request.user.has_perm('gifts.change_gift')
 
 
 class GiftDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

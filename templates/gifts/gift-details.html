@@ -38,7 +38,9 @@
                     <hr>
                     <div class="btn-group-custom">
                         {% if user == gift.user %}
-                            <a href="{% url 'gift-edit' pk=gift.pk %}" class="btn btn-custom">Edit Wish</a>
+                            {% if not gift.is_registered %}
+                                <a href="{% url 'gift-edit' pk=gift.pk %}" class="btn btn-custom">Edit Wish</a>
+                            {% endif %}
                             <a href="{% url 'gift-delete' pk=gift.pk %}" class="btn btn-custom">Delete Wish</a>
                         {% endif %}
                         <a href="{% url 'wishnest-details' gift.wishnest_id %}" class="btn btn-custom">Return to Wishnest</a>
