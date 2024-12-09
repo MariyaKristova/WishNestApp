@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.views import generic
@@ -53,7 +54,9 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView)
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        return self.request.user == event.user
+        if self.request.user != event.user or event.is_past:
+            raise PermissionDenied
+        return True
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})

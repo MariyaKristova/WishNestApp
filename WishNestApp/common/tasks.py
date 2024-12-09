@@ -11,3 +11,7 @@ def delete_expired_sharelinks():
     else:
         print("No expired share links found.")
     return count
+
+@shared_task
+def test_task():
+    print("Test task executed successfully!")
