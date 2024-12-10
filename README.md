@@ -124,14 +124,16 @@ __________________________
   redis-server
 ```
 
-8.Run celery
+8. Run celery
 
 ```
   celery -A WishNestApp worker --loglevel=info
 ```
 
-9.Run celery-beat
+9. Run celery-beat
 
 ```
   celery -A WishNestApp beat --loglevel=info
 ```
+
+10. Enjoy :)
