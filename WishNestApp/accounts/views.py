@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
@@ -24,9 +25,13 @@ class RegisterView(CreateView):
         return next_url if next_url else super().get_success_url()
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        login(self.request, self.object)
-        return response
+        try:
+            response = super().form_valid(form)
+            login(self.request, self.object)
+            return response
+        except ValueError as e:
+            messages.error(self.request, str(e))
+            return self.form_invalid(form)
 
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile

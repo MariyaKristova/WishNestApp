@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
+from django.core.exceptions import ValidationError
 
 from WishNestApp.accounts.models import Profile
 
@@ -19,6 +20,12 @@ class UserCreateForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower().strip()
+        if UserModel.objects.filter(email__iexact=email).exists():
+            raise ValidationError("A user with this email already exists.")
+        return email
 
 
 class ProfileEditForm(forms.ModelForm):
