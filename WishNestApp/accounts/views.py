@@ -14,6 +14,11 @@ UserModel = get_user_model()
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy('dashboard'))
+        return super().dispatch(request, *args, **kwargs)
+
 class RegisterView(CreateView):
     model = UserModel
     form_class = UserCreateForm
@@ -32,6 +37,11 @@ class RegisterView(CreateView):
         except ValueError as e:
             messages.error(self.request, str(e))
             return self.form_invalid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy('dashboard'))
+        return super().dispatch(request, *args, **kwargs)
 
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile
