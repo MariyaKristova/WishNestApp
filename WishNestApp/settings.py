@@ -180,6 +180,8 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 COMPANY_EMAIL = config('COMPANY_EMAIL')
 
+SITE_URL = config('SITE_URL')
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

@@ -19,6 +19,10 @@ class RegisterView(CreateView):
     template_name = 'accounts/register.html'
     success_url = reverse_lazy('dashboard')
 
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        return next_url if next_url else super().get_success_url()
+
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)

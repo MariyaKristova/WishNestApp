@@ -25,8 +25,8 @@
 
                     <div class="text-center">
                         <p class="text-muted">Don't have an account?</p>
-                        <a href="{% url 'register' %}?next={{ request.path }}" class="btn btn-outline-secondary">Create Account</a>
-                    </div>
+                        <a href="{% url 'register' %}?next={{ request.GET.next|default:request.path }}" class="btn btn-custom">Register</a>
+                     </div>
                 </div>
             </div>
         </div>

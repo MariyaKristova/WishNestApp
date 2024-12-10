@@ -31,7 +31,7 @@
 
                     <div class="text-center">
                         <p class="text-muted">Already have an account?</p>
-                        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a>
+                        <a href="{% url 'login' %}?next={{ request.GET.next }}" class="btn btn-outline-secondary">Login</a>
                     </div>
                 </div>
             </div>

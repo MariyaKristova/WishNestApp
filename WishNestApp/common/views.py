@@ -1,15 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.timezone import now
 from django.views.generic import TemplateView, ListView, CreateView
-from urllib3 import request
-
 from WishNestApp.common.forms import HugForm
 from WishNestApp.common.models import Hug, ShareLink
 from WishNestApp.events.models import Event
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from django.contrib import messages
 
 class HomePageView(TemplateView):
     template_name = 'common/home-page.html'
@@ -73,6 +71,12 @@ class HugCreateView(CreateView):
         return reverse_lazy('event-details', kwargs={'pk': self.object.to_event.pk})
 
 
+def custom_404_view(request, exception=None):
+    return render(request, '404.html', status=404)
+
+def custom_403_view(request, exception=None):
+    return render(request, '403.html', status=403)
+
 class SharedEventView(View):
     def get(self, request, token):
         try:
@@ -80,15 +84,6 @@ class SharedEventView(View):
             if share_link.is_valid():
                 return redirect('event-details', pk=share_link.event.pk)
             else:
-                messages.error(request, "This share link has expired.")
-                return redirect('home-page')
-
+                raise Http404
         except ShareLink.DoesNotExist:
-            messages.error(request, "Invalid share link.")
-            return redirect('home-page')
-
-def custom_404_view(request, exception=None):
-    return render(request, '404.html', status=404)
-
-def custom_403_view(request, exception=None):
-    return render(request, '403.html', status=403)
+            raise Http404

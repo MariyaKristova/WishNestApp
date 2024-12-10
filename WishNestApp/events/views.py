@@ -1,14 +1,11 @@
 from datetime import timedelta
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
-from django.contrib import messages
+from django.urls import reverse_lazy, reverse
 from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
 from WishNestApp.common.forms import HugForm
 from WishNestApp.common.models import ShareLink
 from WishNestApp.events.forms import EventEditForm, EventDeleteForm, EventCreateForm
