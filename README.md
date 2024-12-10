@@ -19,6 +19,11 @@ At WishNest, we believe in the power of connection and the magic of making wishe
 🎉 Join the WishNest today and let your wishes take flight!
 _________________________
 
+### Deploy
+
+https://wishnest-g4ehfuahanahehd0.italynorth-01.azurewebsites.net
+_________________________
+
 ### Assets:
 
 ### Home Page
