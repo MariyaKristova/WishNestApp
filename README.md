@@ -112,3 +112,21 @@ __________________________
 ```
   python manage.py runserver
 ```
+
+7. Run redis
+
+```
+  redis-server
+```
+
+8.Run celery
+
+```
+  celery -A WishNestApp worker --loglevel=info
+```
+
+9.Run celery-beat
+
+```
+  celery -A WishNestApp beat --loglevel=info
+```
