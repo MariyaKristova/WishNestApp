@@ -86,13 +86,15 @@ __________________________
 
 2. Open the project
 
-3. Install dependencies
+3. Add .env file
+
+4. Install dependencies
 
 ```
   pip install -r requirements.txt
 ```
 
-4. Change DB settings in settings.py
+5. Change DB settings in settings.py
 ```
   DATABASES = {
       "default": {
@@ -106,34 +108,34 @@ __________________________
   }
  ``` 
 
-5. Run the migrations
+6. Run the migrations
 
 ```
   python manage.py migrate
 ```
 
-6. Run the project
+7. Run the project
 
 ```
   python manage.py runserver
 ```
 
-7. Run redis
+8. Run redis
 
 ```
   redis-server
 ```
 
-8. Run celery
+9. Run celery
 
 ```
   celery -A WishNestApp worker --loglevel=info
 ```
 
-9. Run celery-beat
+10. Run celery-beat
 
 ```
   celery -A WishNestApp beat --loglevel=info
 ```
 
-10. Enjoy :)
+11. Enjoy :)
