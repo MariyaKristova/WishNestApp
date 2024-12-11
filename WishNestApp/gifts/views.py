@@ -69,7 +69,6 @@ class GiftEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class GiftDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Gift
-    form_class = GiftDeleteForm
     template_name = 'gifts/gift-delete.html'
 
     def get_success_url(self):

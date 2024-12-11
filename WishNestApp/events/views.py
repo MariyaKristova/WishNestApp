@@ -63,7 +63,7 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == event.user and not event.is_past:
             return True
 
-        raise PermissionDenied
+        return False
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})
@@ -72,16 +72,7 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Event
     template_name = 'events/event-delete.html'
     success_url = reverse_lazy('dashboard')
-    form_class = EventDeleteForm
-
-    def get_initial(self) -> dict:
-        return self.get_object().__dict__
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
         return self.request.user.is_superuser or self.request.user.has_perm('events.delete_event') or self.request.user == event.user
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update({'data': self.get_initial(),})
-        return kwargs

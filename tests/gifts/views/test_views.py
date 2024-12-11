@@ -100,9 +100,15 @@ class GiftViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_gift_delete(self):
+        # Ensure the gift and wishnest are created in setUp
+        self.client.login(email='testuser@test.com', password='password123')
+
+        # Send the delete request
         response = self.client.post(reverse('gift-delete', kwargs={'pk': self.gift.pk}))
+
+        # Check if the gift is deleted and the user is redirected to the correct wishnest details page
         self.assertRedirects(response, reverse('wishnest-details', kwargs={'pk': self.wishnest1.pk}))
-        self.assertFalse(Gift.objects.filter(pk=self.gift.pk).exists())
+        self.assertFalse(Gift.objects.filter(pk=self.gift.pk).exists())  # Ensure the gift no longer exists
 
     def test_gift_delete_permission(self):
         self.client.logout()

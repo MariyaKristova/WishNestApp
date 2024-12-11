@@ -24,15 +24,7 @@ class EventEditForm(EventBaseForm):
     pass
 
 class EventDeleteForm(forms.ModelForm):
-    class Meta:
-        model = Event
-        fields = ['occasion', 'description', 'date', 'time', 'location']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['disabled'] = 'disabled'
-            field.widget.attrs['readonly'] = 'readonly'
+    pass
 
 
 
