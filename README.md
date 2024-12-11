@@ -14,9 +14,6 @@ Track and celebrate the thoughtful gifts you receive while ensuring every wish f
 After-Party Love: 
 Keep the joy alive by sending virtual hugs and kisses to your guests after the celebration.
 
-At WishNest, we believe in the power of connection and the magic of making wishes come true. Whether you're the host or a guest, there's something here to make every moment unforgettable.
-
-🎉 Join the WishNest today and let your wishes take flight!
 _________________________
 
 ### Assets:
@@ -120,22 +117,15 @@ __________________________
   python manage.py runserver
 ```
 
-8. Run redis
-
-```
-  redis-server
-```
-
-9. Run celery
+8. Run celery
 
 ```
   celery -A WishNestApp worker --loglevel=info
 ```
-
-10. Run celery-beat
+9. Run celery-beat
 
 ```
   celery -A WishNestApp beat --loglevel=info
 ```
 
-11. Enjoy :)
+10. Enjoy :)
