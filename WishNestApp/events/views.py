@@ -1,7 +1,7 @@
 from datetime import timedelta
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
-from django.utils import timezone
+from django.utils.timezone import now
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
@@ -32,12 +32,21 @@ class EventDetailView(DetailView):
         context['hug_form'] = HugForm()
 
         if self.request.user == self.object.user:
-            share_link = ShareLink.objects.filter(event=self.object, expires_at__gt=timezone.now()).first()
+            share_link = ShareLink.objects.filter(event=self.object, expires_at__gt=now()).first()
             if not share_link:
-                share_link = ShareLink.objects.create(event=self.object, expires_at=self.object.date + timedelta(days=7))
+                share_link = ShareLink.objects.create(
+                    event=self.object,
+                    expires_at=self.object.date + timedelta(days=7)
+                )
 
-            current_site = get_current_site(self.request)
-            share_url = f"https://{current_site.domain}{reverse('shared-event', kwargs={'token': share_link.token})}"
+            # Construct the share URL
+            token_path = reverse('shared-event', kwargs={'token': share_link.token})
+            if self.request.get_host() == 'localhost:8000':
+                share_url = f"http://{self.request.get_host()}{token_path}"
+            else:
+                current_site = get_current_site(self.request)
+                share_url = f"https://{current_site.domain}{token_path}"
+
             context['share_url'] = share_url
 
         return context
@@ -68,7 +77,7 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        return self.request.user == event.user
+        return self.request.user == event.user or self.request.user.has_perm('events.delete_event')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

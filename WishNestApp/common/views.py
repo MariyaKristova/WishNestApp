@@ -70,7 +70,6 @@ class HugCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.to_event.pk})
 
-
 def custom_404_view(request, exception=None):
     return render(request, '404.html', status=404)
 
