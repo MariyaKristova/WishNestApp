@@ -181,6 +181,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 COMPANY_EMAIL = config('COMPANY_EMAIL')
 
 SITE_URL = config('SITE_URL')
+TESTING = False
 
 LOGGING = {
     'version': 1,

@@ -8,10 +8,11 @@ logger = logging.getLogger(__name__)
 @shared_task
 def send_welcome_email(recipient_email):
     logger.info("Sending welcome email to %s", recipient_email)
-    send_mail(
-        subject="Welcome to WishNest",
-        message="Hello, \n\n You successfully created your profile. \n\n Create events, share your wishes, and make them come true!",
-        from_email=settings.COMPANY_EMAIL,
-        recipient_list=[recipient_email],
-        fail_silently=False,
-    )
+    if not settings.TESTING:
+        send_mail(
+            subject="Welcome to WishNest",
+            message="Hello, \n\n You successfully created your profile. \n\n Create events, share your wishes, and make them come true!",
+            from_email=settings.COMPANY_EMAIL,
+            recipient_list=[recipient_email],
+            fail_silently=False,
+        )
