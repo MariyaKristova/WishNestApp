@@ -39,7 +39,6 @@ class EventDetailView(DetailView):
                     expires_at=self.object.date + timedelta(days=7)
                 )
 
-            # Construct the share URL
             token_path = reverse('shared-event', kwargs={'token': share_link.token})
             if self.request.get_host() == 'localhost:8000':
                 share_url = f"http://{self.request.get_host()}{token_path}"
@@ -80,7 +79,7 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        return self.request.user == event.user or self.request.user.has_perm('events.delete_event')
+        return self.request.user.is_superuser or self.request.user.has_perm('events.delete_event') or self.request.user == event.user
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
