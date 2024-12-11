@@ -50,7 +50,7 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return self.request.user == profile.user or self.request.user.has_perm('accounts.change_profile')
+        return self.request.user.is_superuser or self.request.user.has_perm('accounts.change_profile') or self.request.user == profile.user
 
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
@@ -66,7 +66,8 @@ class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('home-page')
 
     def test_func(self):
-        return self.request.user == self.get_object().user or self.request.user.has_perm('accounts.change_profile')
+        profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        return self.request.user.is_superuser or self.request.user.has_perm('accounts.change_profile') or self.request.user == profile.user
 
     def delete(self, request, *args, **kwargs):
         user = self.get_object().user

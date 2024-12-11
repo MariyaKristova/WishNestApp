@@ -59,9 +59,12 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        if self.request.user != event.user or event.is_past:
-            raise PermissionDenied
-        return True
+        if self.request.user.is_superuser or self.request.user.has_perm('events.change_event'):
+            return True
+        if self.request.user == event.user and not event.is_past:
+            return True
+
+        raise PermissionDenied
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})

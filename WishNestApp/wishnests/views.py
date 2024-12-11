@@ -24,7 +24,7 @@ class WishnestAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['event_pk'])
-        return self.request.user == event.user or self.request.user.has_perm('wishnests.add_wishnest')
+        return self.request.user.is_superuser or self.request.user.has_perm('wishnests.add_wishnest') or self.request.user == event.user
 
     def get_success_url(self):
         return reverse_lazy('wishnest-details', kwargs={'pk': self.object.pk})
@@ -40,7 +40,7 @@ class WishnestDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         wishnest = self.get_object()
-        return self.request.user == wishnest.user or self.request.user.has_perm('wishnests.delete_wishnest')
+        return self.request.user.is_superuser or self.request.user.has_perm('wishnests.delete_wishnest') or self.request.user == wishnest.user
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.event.pk})
