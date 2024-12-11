@@ -31,7 +31,10 @@ class EventDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['hug_form'] = HugForm()
 
-        if self.request.user == self.object.user:
+        if (self.request.user.is_superuser
+                or self.request.user.has_perm('events.share_event')
+                or self.request.user == self.object.user
+        ):
             share_link = ShareLink.objects.filter(event=self.object, expires_at__gt=now()).first()
             if not share_link:
                 share_link = ShareLink.objects.create(
@@ -58,12 +61,11 @@ class EventEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        if self.request.user.is_superuser or self.request.user.has_perm('events.change_event'):
-            return True
-        if self.request.user == event.user and not event.is_past:
-            return True
-
-        return False
+        return (
+                self.request.user.is_superuser
+                or self.request.user.has_perm('events.change_event')
+                or (self.request.user == event.user and not event.is_past)
+        )
 
     def get_success_url(self):
         return reverse_lazy('event-details', kwargs={'pk': self.object.pk})
@@ -75,4 +77,6 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        return self.request.user.is_superuser or self.request.user.has_perm('events.delete_event') or self.request.user == event.user
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('events.delete_event')
+                or self.request.user == event.user)

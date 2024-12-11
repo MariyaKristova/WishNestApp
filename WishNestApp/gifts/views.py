@@ -29,7 +29,9 @@ class GiftAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def test_func(self):
         wishnest = get_object_or_404(Wishnest, pk=self.kwargs['wishnest_pk'])
-        return self.request.user.is_superuser or self.request.user.has_perm('gifts.add_gift') or self.request.user == wishnest.user
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('gifts.add_gift')
+                or self.request.user == wishnest.user)
 
 
 class GiftDetailsView(DetailView, FormView):
@@ -61,11 +63,10 @@ class GiftEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         gift = get_object_or_404(Gift, pk=self.kwargs['pk'])
-        if self.request.user.has_perm('gifts.change_gift') or self.request.user.is_superuser:
-            return True
-        if self.request.user == gift.user and not gift.is_registered:
-            return True
-        return False
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('gifts.change_gift')
+                or (self.request.user == gift.user and not gift.is_registered)
+        )
 
 class GiftDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Gift
@@ -76,4 +77,6 @@ class GiftDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         gift = get_object_or_404(Gift, pk=self.kwargs['pk'])
-        return self.request.user.is_superuser or self.request.user.has_perm('gifts.delete_gift') or self.request.user == gift.user
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('gifts.delete_gift')
+                or self.request.user == gift.user)

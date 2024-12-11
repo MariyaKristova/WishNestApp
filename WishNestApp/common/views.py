@@ -50,11 +50,10 @@ class PastEventsView(LoginRequiredMixin, ListView):
         context['subheader'] = "Send hugs & kisses to your guests! Past events are saved for a week."
         return context
 
-class HugCreateView(CreateView):
+class HugCreateView(LoginRequiredMixin, CreateView):
     model = Hug
     form_class = HugForm
     template_name = 'common/dashboard.html'
-    context_object_name = 'form'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,6 +62,8 @@ class HugCreateView(CreateView):
 
     def form_valid(self, form):
         event = get_object_or_404(Event, pk=self.kwargs['event_id'])
+        if not event.is_past:
+            return self.form_invalid(form)
         form.instance.author = self.request.user
         form.instance.to_event = event
         return super().form_valid(form)

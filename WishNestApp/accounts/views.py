@@ -5,7 +5,6 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
-
 from WishNestApp.accounts.forms import UserCreateForm, ProfileEditForm
 from WishNestApp.accounts.models import Profile
 
@@ -50,7 +49,9 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return self.request.user.is_superuser or self.request.user.has_perm('accounts.change_profile') or self.request.user == profile.user
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('accounts.change_profile')
+                or self.request.user == profile.user)
 
     def get_success_url(self):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
@@ -67,7 +68,9 @@ class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return self.request.user.is_superuser or self.request.user.has_perm('accounts.change_profile') or self.request.user == profile.user
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('accounts.delete_profile')
+                or self.request.user == profile.user)
 
     def delete(self, request, *args, **kwargs):
         user = self.get_object().user

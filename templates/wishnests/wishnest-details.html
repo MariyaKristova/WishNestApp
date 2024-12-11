@@ -53,8 +53,9 @@
                     <br>
                     <div class="btn-group-custom">
                             {% if user == object.user %}
-                            <a href="{% url 'gift-add' wishnest_pk=object.pk %}" class="btn btn-custom">Add your Wish</a>
-                            <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
+                                <a href="{% url 'gift-add' wishnest_pk=object.pk %}" class="btn btn-custom">Add your Wish</a>
+                                <a href="{% url 'wishnest-delete' object.pk %}" class="btn btn-custom">Delete Wishnest</a>
+                                <a href="{% url 'wishnest-edit' object.pk %}" class="btn btn-custom">Edit Title</a>
                             {% endif %}
                             <a href="{% url 'event-details' wishnest.event_id %}" class="btn btn-custom">Return to Event</a>
                     </div>
