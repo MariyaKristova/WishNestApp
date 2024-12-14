@@ -25,7 +25,3 @@ class EventEditForm(EventBaseForm):
 
 class EventDeleteForm(forms.ModelForm):
     pass
-
-
-
-

@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.urls import reverse_lazy
-from django.utils.timezone import now
+from django.utils.timezone import localdate
 from django.views.generic import TemplateView, ListView, CreateView
 from WishNestApp.common.forms import HugForm
 from WishNestApp.common.models import Hug, ShareLink
@@ -23,8 +23,9 @@ class DashboardView(LoginRequiredMixin, ListView):
     ordering = ['date', 'time']
     paginate_by = 3
 
+    #fix: filter by local date
     def get_queryset(self):
-        return Event.objects.filter(user=self.request.user).filter(date__gte=now().date()).order_by('date', 'time')
+        return Event.objects.filter(user=self.request.user).filter(date__gte=localdate()).order_by('date', 'time')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,7 +42,7 @@ class PastEventsView(LoginRequiredMixin, ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Event.objects.filter(user=self.request.user).filter(date__lt=now().date()).order_by('date', 'time')
+        return Event.objects.filter(user=self.request.user).filter(date__lt=localdate()).order_by('date', 'time')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

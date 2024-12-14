@@ -1,16 +1,15 @@
 from datetime import timedelta
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
 from django.contrib.sites.shortcuts import get_current_site
+
 from WishNestApp.common.forms import HugForm
 from WishNestApp.common.models import ShareLink
-from WishNestApp.events.forms import EventEditForm, EventDeleteForm, EventCreateForm
+from WishNestApp.events.forms import EventEditForm, EventCreateForm
 from WishNestApp.events.models import Event
-
 
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
@@ -31,7 +30,8 @@ class EventDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['hug_form'] = HugForm()
 
-        if (self.request.user.is_superuser
+        if (
+                self.request.user.is_superuser
                 or self.request.user.has_perm('events.share_event')
                 or self.request.user == self.object.user
         ):
@@ -77,6 +77,8 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         event = get_object_or_404(Event, pk=self.kwargs['pk'])
-        return (self.request.user.is_superuser
+        return (
+                self.request.user.is_superuser
                 or self.request.user.has_perm('events.delete_event')
-                or self.request.user == event.user)
+                or self.request.user == event.user
+        )

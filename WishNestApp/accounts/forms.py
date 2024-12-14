@@ -21,8 +21,11 @@ class UserCreateForm(UserCreationForm):
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None
 
+
     def clean_email(self):
-        email = self.cleaned_data['email'].lower().strip()
+        email = self.cleaned_data['email']
+        email = UserModel.objects.normalize_email(email) #fix: DRY
+
         if UserModel.objects.filter(email__iexact=email).exists():
             raise ValidationError("A user with this email already exists.")
         return email

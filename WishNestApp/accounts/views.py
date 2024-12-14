@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect
@@ -57,9 +57,15 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
 
-class ProfileDetailView(LoginRequiredMixin, DetailView):
+class ProfileDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = UserModel
     template_name = 'accounts/profile-details.html'
+
+    def test_func(self):
+        profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        return (self.request.user.is_superuser
+                or self.request.user.has_perm('accounts.view_profile')
+                or self.request.user == profile.user)
 
 class ProfileDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Profile
